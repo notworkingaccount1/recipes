@@ -144,10 +144,12 @@
       .btn.danger{color:var(--danger)}
       .btn.danger.armed{background:var(--danger);color:var(--on-danger);border-color:transparent}
       .btn:disabled{opacity:.45;cursor:not-allowed}
-      #f{display:flex;flex-direction:column;min-height:0}
+      #f,#cf{display:flex;flex-direction:column;min-height:0}
+      .crow{display:grid;grid-template-columns:1fr auto;gap:8px}
+      .cats .add{color:var(--accent)}
       .fld{display:grid;gap:6px;margin:0;border:0;padding:0}
       .fld>span{font-size:13.5px;color:var(--muted)}
-      .fld input,.fld textarea{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);font-size:16px}
+      .fld input,.fld textarea,.fld select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);color:inherit;font-size:16px}
       .fld textarea{resize:vertical;min-height:96px;line-height:1.5}
       .irow{display:grid;grid-template-columns:1fr 64px 64px 36px;gap:6px;margin-bottom:6px}
       .irow input{padding:10px}
@@ -342,15 +344,13 @@
             <span>Список</span>
             <div class="pills" id="f-status"></div>
           </div>
-          <label class="fld"
-            ><span>Категорія</span
-            ><input
-              id="f-cat"
-              list="cat-list"
-              required
-              maxlength="40"
-              autocomplete="off" /><datalist id="cat-list"></datalist
-          ></label>
+          <div class="fld">
+            <span id="l-cat">Категорія</span>
+            <div class="crow">
+              <select id="f-cat" required aria-labelledby="l-cat"></select
+              ><button class="btn" id="f-newcat" type="button">+ Нова</button>
+            </div>
+          </div>
           <div class="fld" id="f-rate-wrap">
             <span>Оцінки</span>
             <div id="f-rates"></div>
@@ -404,6 +404,44 @@
           Перенести
         </button>
       </div>
+    </dialog>
+
+    <dialog id="catdlg" aria-labelledby="cat-h">
+      <form id="cf">
+        <div class="sheet-head">
+          <div><h2 id="cat-h">Нова категорія</h2></div>
+          <button class="x" id="cat-x" type="button" aria-label="Закрити">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+        <div class="sheet-body">
+          <label class="fld"
+            ><span>Назва категорії</span
+            ><input
+              id="cat-name"
+              required
+              maxlength="40"
+              autocomplete="off"
+              autofocus
+              placeholder="Наприклад, Салати"
+          /></label>
+        </div>
+        <div class="sheet-foot">
+          <button class="btn" id="cat-cancel" type="button">Скасувати</button
+          ><button class="btn primary" type="submit">Додати</button>
+        </div>
+      </form>
     </dialog>
 
     <button class="fab" id="add" type="button">
@@ -473,9 +511,9 @@
       const SRC = new URLSearchParams(location.search).get('data') === 'demo' ? 'data.demo.json' : 'data.json';
       const KEY = 'recipe-changes:' + SRC;
       const state = { tab: 'cooked', cat: 'all', q: '', who: 'avg', min: 0 };
-      let rawBase, mergedRaw, data, byId = new Map(), catSig = '', changes = { upserts: {}, deleted: [] }, fs = {}, rateDone = () => {};
+      let rawBase, mergedRaw, data, byId = new Map(), catSig = '', changes = { upserts: {}, deleted: [], cats: [] }, fs = {}, rateDone = () => {}, catDone = () => {};
       const $ = id => document.getElementById(id);
-      const dlg = $('dlg'), formDlg = $('form'), rateDlg = $('rate');
+      const dlg = $('dlg'), formDlg = $('form'), rateDlg = $('rate'), catDlg = $('catdlg');
 
       const el = (tag, props = {}, ...kids) => {
         const n = document.createElement(tag);
@@ -529,10 +567,10 @@
         const list = rawBase.recipes.filter(r => !del.has(r.id)).map(r => (seen.add(r.id), up[r.id] || r));
         Object.entries(up).forEach(([id, r]) => seen.has(id) || list.push(r));
         mergedRaw = list;
-        data = normalize({ ...rawBase, recipes: list });
+        data = normalize({ ...rawBase, categories: [...(rawBase.categories || []), ...changes.cats], recipes: list });
         byId = new Map(data.recipes.map(r => [r.id, r]));
       }
-      const nChanges = () => Object.keys(changes.upserts).length + changes.deleted.length;
+      const nChanges = () => Object.keys(changes.upserts).length + changes.deleted.length + changes.cats.length;
       function commit() {
         try { localStorage.setItem(KEY, JSON.stringify(changes)); } catch { alert('Браузер не дозволив зберегти зміни локально. Завантажте дані, щоб нічого не втратити.'); }
         rebuild(); render();
@@ -550,7 +588,7 @@
       }
       function resetChanges() {
         if (!confirm(`Скинути всі локальні зміни? Дані повернуться до стану з ${SRC}.`)) return;
-        changes = { upserts: {}, deleted: [] }; commit();
+        changes = { upserts: {}, deleted: [], cats: [] }; commit();
       }
 
       /* ---------- відображення ---------- */
@@ -587,9 +625,10 @@
         const sig = data.categories.join('|');
         if (sig !== catSig) {
           catSig = sig;
-          $('cats').replaceChildren(...['all', ...data.categories].map(c => el('button', { type: 'button', role: 'tab', 'data-c': c, text: c === 'all' ? 'Усі' : c })));
+          $('cats').replaceChildren(...['all', ...data.categories].map(c => el('button', { type: 'button', role: 'tab', 'data-c': c, text: c === 'all' ? 'Усі' : c })),
+            el('button', { type: 'button', class: 'add', text: '+ Категорія', onclick: () => askCategory(c => { state.cat = c; render(); }) }));
         }
-        document.querySelectorAll('#cats button').forEach(b => b.setAttribute('aria-selected', b.dataset.c === state.cat));
+        document.querySelectorAll('#cats [data-c]').forEach(b => b.setAttribute('aria-selected', b.dataset.c === state.cat));
 
         const cooked = visible('cooked'), planned = visible('planned');
         $('n-cooked').textContent = cooked.length;
@@ -668,7 +707,7 @@
       }
 
       function moveTo(r) {
-        const finish = raw => { upsert(raw); state.tab = raw.status; commit(); openRecipe(byId.get(r.id)); };
+        const finish = raw => { upsert(raw); dlg.close(); commit(); };
         if (r.status === 'cooked') return finish({ ...toRaw(r), status: 'planned' });
         askRatings(r, ratings => finish({ ...toRaw(r), status: 'cooked', ratings }));
       }
@@ -696,6 +735,22 @@
         show(rateDlg);
       }
 
+      /* ---------- нова категорія ---------- */
+      function askCategory(done) { catDone = done; $('cat-name').value = ''; show(catDlg); }
+      $('cf').addEventListener('submit', e => {
+        e.preventDefault();
+        const name = $('cat-name').value.trim();
+        if (!name) return;
+        const found = data.categories.find(c => c.toLocaleLowerCase('uk') === name.toLocaleLowerCase('uk'));
+        catDlg.close();
+        if (!found) { changes.cats.push(name); commit(); }
+        catDone(found || name);
+      });
+      const fillCats = sel => {
+        $('f-cat').replaceChildren(...(data.categories.length ? [] : [el('option', { value: '', text: 'Оберіть категорію' })]), ...data.categories.map(c => el('option', { value: c, text: c })));
+        $('f-cat').value = sel || '';
+      };
+
       /* ---------- форма додавання / редагування ---------- */
       const ingRow = (i = {}) => {
         const rm = el('button', { type: 'button', class: 'x sm', 'aria-label': 'Прибрати інгредієнт' });
@@ -718,8 +773,7 @@
         fs = { id: r?.id, status: r?.status || state.tab, ratings: { ...(r?.ratings || {}) } };
         $('f-head').textContent = r ? 'Редагування' : 'Новий рецепт';
         $('f-name').value = r?.title || '';
-        $('f-cat').value = r?.category || (state.cat !== 'all' ? state.cat : data.categories[0] || '');
-        $('cat-list').replaceChildren(...data.categories.map(c => el('option', { value: c })));
+        fillCats(r?.category || (state.cat !== 'all' ? state.cat : data.categories[0] || ''));
         $('f-notes').value = r?.notes || '';
         $('f-ings').replaceChildren(...(r?.ingredients.length ? r.ingredients : [{}]).map(ingRow));
         $('f-err').hidden = true;
@@ -762,7 +816,7 @@
       (async () => {
         const { raw, fallback } = await load();
         rawBase = raw; rawBase.recipes = (raw.recipes || []).map((r, i) => ({ ...r, id: String(r.id || slug(r.title) || 'r' + i) }));
-        try { const c = JSON.parse(localStorage.getItem(KEY)); if (c) changes = { upserts: c.upserts || {}, deleted: c.deleted || [] }; } catch {}
+        try { const c = JSON.parse(localStorage.getItem(KEY)); if (c) changes = { upserts: c.upserts || {}, deleted: c.deleted || [], cats: c.cats || [] }; } catch {}
         rebuild();
         state.tab = data.recipes.some(r => r.status === 'cooked') ? 'cooked' : 'planned';
         document.title = data.title; $('title').textContent = data.title;
@@ -781,10 +835,11 @@
         $('reset').addEventListener('click', () => { Object.assign(state, { q: '', cat: 'all', who: 'avg', min: 0 }); $('q').value = ''; render(); });
         $('dl').addEventListener('click', download);
         $('add').addEventListener('click', () => openForm());
+        $('f-newcat').addEventListener('click', () => askCategory(c => fillCats(c)));
         $('f-add').addEventListener('click', () => { const row = ingRow(); $('f-ings').append(row); row.firstChild.focus(); });
         $('rate-save').addEventListener('click', () => rateDone());
 
-        for (const [d, closers] of [[dlg, ['d-close']], [formDlg, ['f-close', 'f-cancel']], [rateDlg, ['rate-x', 'rate-cancel']]]) {
+        for (const [d, closers] of [[dlg, ['d-close']], [formDlg, ['f-close', 'f-cancel']], [rateDlg, ['rate-x', 'rate-cancel']], [catDlg, ['cat-x', 'cat-cancel']]]) {
           closers.forEach(id => $(id).addEventListener('click', () => d.close()));
           d.addEventListener('close', () => { if (!document.querySelector('dialog[open]')) document.documentElement.classList.remove('locked'); });
         }
