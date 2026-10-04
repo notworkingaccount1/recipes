@@ -4,12 +4,13 @@
     { "id": "sasha", "name": "Саша" },
     { "id": "nazar", "name": "Назар" }
   ],
+  "categories": ["Основні страви", "Закуски", "Супи", "Десерти"],
   "recipes": [
     {
       "id": "draniki",
       "title": "Драники",
-      "status": "cooked",
-      "ratings": { "sasha": 5, "nazar": 5 },
+      "status": "planned",
+      "category": "Основні страви",
       "ingredients": {
         "вода, ст. л.": 2,
         "картопля, кг": 1.2,
@@ -19,12 +20,13 @@
         "фарш, г": 200,
         "яйце, шт.": 1
       },
-      "notes": "Тестова нотатка. Сюди можна писати рецепт або що завгодно."
+      "notes": ""
     },
     {
       "id": "rulety-z-vitchynoyu",
       "title": "Рулети з вітчиною",
       "status": "planned",
+      "category": "Закуски",
       "ingredients": {
         "вітчина, г": 200,
         "сир, г": 100,

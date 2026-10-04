@@ -1,332 +1,797 @@
 <!doctype html>
 <html lang="uk">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Наші рецепти</title>
-<meta name="theme-color" content="#f2f6f1" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0c1714" media="(prefers-color-scheme: dark)">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍲%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
-<style>
-:root{color-scheme:light dark;--bg:#f2f6f1;--bar:rgba(242,246,241,.84);--surface:#fff;--surface-2:#e6eee7;--ink:#14281f;--muted:#587065;--line:rgba(20,40,31,.12);--accent:#1c7a58;--on-accent:#fff;--gold:#f0a81a;--off:rgba(20,40,31,.16);--shadow:0 1px 2px rgba(20,40,31,.06),0 10px 26px -14px rgba(20,40,31,.25);--g1:rgba(63,184,138,.30);--g2:rgba(240,168,26,.22);--body:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--display:"Unbounded","Onest",system-ui,sans-serif}
-@media(prefers-color-scheme:dark){:root{--bg:#0c1714;--bar:rgba(12,23,20,.84);--surface:#13241f;--surface-2:#1b312a;--ink:#e7f2ec;--muted:#8aa89c;--line:rgba(231,242,236,.12);--accent:#4fd1a1;--on-accent:#06281c;--gold:#ffc247;--off:rgba(231,242,236,.18);--shadow:0 1px 2px rgba(0,0,0,.3),0 12px 30px -16px rgba(0,0,0,.7);--g1:rgba(79,209,161,.18);--g2:rgba(255,194,71,.10)}}
-*{box-sizing:border-box}
-[hidden]{display:none!important}
-html.locked{overflow:hidden}
-body{margin:0;min-height:100dvh;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);-webkit-text-size-adjust:100%}
-body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(56rem 26rem at 6% -8%,var(--g1),transparent 62%),radial-gradient(42rem 22rem at 100% -4%,var(--g2),transparent 64%)}
-button,input{font:inherit;color:inherit}
-button{cursor:pointer;-webkit-tap-highlight-color:transparent}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.wrap{width:min(1080px,100%);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
-.hero{padding-top:max(28px,env(safe-area-inset-top))}
-h1{margin:0 0 18px;font:700 clamp(28px,7vw,44px)/1.1 var(--display);letter-spacing:-.02em}
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Наші рецепти</title>
+    <meta
+      name="theme-color"
+      content="#f2f6f1"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0c1714"
+      media="(prefers-color-scheme: dark)"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🍲%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root{color-scheme:light dark;--bg:#f2f6f1;--bar:rgba(242,246,241,.84);--surface:#fff;--surface-2:#e6eee7;--ink:#14281f;--muted:#587065;--line:rgba(20,40,31,.12);--accent:#1c7a58;--on-accent:#fff;--gold:#f0a81a;--off:rgba(20,40,31,.16);--shadow:0 1px 2px rgba(20,40,31,.06),0 10px 26px -14px rgba(20,40,31,.25);--g1:rgba(63,184,138,.30);--g2:rgba(240,168,26,.22);--body:"Onest",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--display:"Unbounded","Onest",system-ui,sans-serif}
+      @media(prefers-color-scheme:dark){:root{--bg:#0c1714;--bar:rgba(12,23,20,.84);--surface:#13241f;--surface-2:#1b312a;--ink:#e7f2ec;--muted:#8aa89c;--line:rgba(231,242,236,.12);--accent:#4fd1a1;--on-accent:#06281c;--gold:#ffc247;--off:rgba(231,242,236,.18);--shadow:0 1px 2px rgba(0,0,0,.3),0 12px 30px -16px rgba(0,0,0,.7);--g1:rgba(79,209,161,.18);--g2:rgba(255,194,71,.10)}}
+      *{box-sizing:border-box}
+      [hidden]{display:none!important}
+      html.locked{overflow:hidden}
+      body{margin:0;min-height:100dvh;background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);-webkit-text-size-adjust:100%}
+      body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(56rem 26rem at 6% -8%,var(--g1),transparent 62%),radial-gradient(42rem 22rem at 100% -4%,var(--g2),transparent 64%)}
+      button,input{font:inherit;color:inherit}
+      button{cursor:pointer;-webkit-tap-highlight-color:transparent}
+      :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+      .wrap{width:min(1080px,100%);margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left));padding-right:max(16px,env(safe-area-inset-right))}
+      .hero{padding-top:max(28px,env(safe-area-inset-top))}
+      h1{margin:0 0 18px;font:700 clamp(28px,7vw,44px)/1.1 var(--display);letter-spacing:-.02em}
 
-.bar{position:sticky;top:0;z-index:5;padding:10px 0 12px;background:var(--bar);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
-.bar-in{display:grid;gap:10px}
-@media(min-width:720px){.bar-in{grid-template-columns:1fr 340px}}
-.search{position:relative;display:block}
-.search>svg{position:absolute;left:14px;top:50%;translate:0 -50%;color:var(--muted);pointer-events:none}
-.search input{width:100%;height:48px;padding:0 44px;border-radius:16px;border:1px solid var(--line);background:var(--surface);-webkit-appearance:none;appearance:none}
-.search input::placeholder{color:var(--muted)}
-.search input::-webkit-search-cancel-button{display:none}
-.clear{position:absolute;right:6px;top:50%;translate:0 -50%;width:36px;height:36px;border:0;border-radius:50%;background:none;color:var(--muted);display:grid;place-items:center}
+      .bar{position:sticky;top:0;z-index:5;padding:10px 0 12px;background:var(--bar);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+      .bar-in{display:grid;gap:10px}
+      @media(min-width:720px){.bar-in{grid-template-columns:1fr 340px}}
+      .search{position:relative;display:block}
+      .search>svg{position:absolute;left:14px;top:50%;translate:0 -50%;color:var(--muted);pointer-events:none}
+      .search input{width:100%;height:48px;padding:0 44px;border-radius:16px;border:1px solid var(--line);background:var(--surface);-webkit-appearance:none;appearance:none}
+      .search input::placeholder{color:var(--muted)}
+      .search input::-webkit-search-cancel-button{display:none}
+      .clear{position:absolute;right:6px;top:50%;translate:0 -50%;width:36px;height:36px;border:0;border-radius:50%;background:none;color:var(--muted);display:grid;place-items:center}
 
-.seg{position:relative;display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:16px;background:var(--surface-2)}
-.thumb{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/2);border-radius:12px;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.14);transition:transform .25s cubic-bezier(.3,.8,.3,1)}
-.seg[data-tab=planned] .thumb{transform:translateX(100%)}
-.seg button{position:relative;z-index:1;min-height:44px;padding:8px;border:0;border-radius:12px;background:none;color:var(--muted);font-weight:600;font-size:14.5px;display:flex;justify-content:center;align-items:center;gap:8px}
-.seg button[aria-selected=true]{color:var(--ink)}
-.count{min-width:22px;padding:1px 7px;border-radius:99px;background:var(--line);font-size:12.5px;font-variant-numeric:tabular-nums}
-.seg button[aria-selected=true] .count{background:var(--accent);color:var(--on-accent)}
+      .seg{position:relative;display:grid;grid-template-columns:1fr 1fr;padding:4px;border-radius:16px;background:var(--surface-2)}
+      .thumb{position:absolute;top:4px;bottom:4px;left:4px;width:calc((100% - 8px)/2);border-radius:12px;background:var(--surface);box-shadow:0 1px 3px rgba(0,0,0,.14);transition:transform .25s cubic-bezier(.3,.8,.3,1)}
+      .seg[data-tab=planned] .thumb{transform:translateX(100%)}
+      .seg button{position:relative;z-index:1;min-height:44px;padding:8px;border:0;border-radius:12px;background:none;color:var(--muted);font-weight:600;font-size:14.5px;display:flex;justify-content:center;align-items:center;gap:8px}
+      .seg button[aria-selected=true]{color:var(--ink)}
+      .count{min-width:22px;padding:1px 7px;border-radius:99px;background:var(--line);font-size:12.5px;font-variant-numeric:tabular-nums}
+      .seg button[aria-selected=true] .count{background:var(--accent);color:var(--on-accent)}
 
-main{padding-top:6px;padding-bottom:max(40px,env(safe-area-inset-bottom))}
-.filters{display:grid;gap:8px;margin:8px 0 14px}
-.frow{display:flex;align-items:center;gap:10px}
-.flabel{flex:none;width:5.4rem;font-size:13.5px;color:var(--muted)}
-.pills{display:flex;flex-wrap:wrap;gap:6px}
-.pill{min-height:38px;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--surface);font-weight:500;font-size:14px}
-.pill[aria-pressed=true]{background:var(--accent);border-color:transparent;color:var(--on-accent)}
-.pill i{font-style:normal;color:var(--gold)}
-.pill[aria-pressed=true] i{color:inherit}
-.notice{margin:8px 0 14px;padding:10px 14px;border-radius:14px;background:rgba(240,168,26,.16);font-size:14px}
+      main{padding-top:6px;padding-bottom:max(40px,env(safe-area-inset-bottom))}
+      .filters{display:grid;gap:8px;margin:8px 0 14px}
+      .frow{display:flex;align-items:center;gap:10px}
+      .flabel{flex:none;width:5.4rem;font-size:13.5px;color:var(--muted)}
+      .pills{display:flex;flex-wrap:wrap;gap:6px}
+      .pill{min-height:38px;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--surface);font-weight:500;font-size:14px}
+      .pill[aria-pressed=true]{background:var(--accent);border-color:transparent;color:var(--on-accent)}
+      .pill i{font-style:normal;color:var(--gold)}
+      .pill[aria-pressed=true] i{color:inherit}
+      .notice{margin:8px 0 14px;padding:10px 14px;border-radius:14px;background:rgba(240,168,26,.16);font-size:14px}
 
-.grid{list-style:none;margin:0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,310px),1fr))}
-.card{display:flex;align-items:center;gap:14px;width:100%;padding:14px;text-align:left;border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
-@media(hover:hover){.card:hover{transform:translateY(-2px);border-color:var(--accent)}}
-.card:active{transform:scale(.99)}
-.card-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
-.card-title{font-weight:600;font-size:17px;line-height:1.25;overflow-wrap:anywhere}
-.card-rate{display:flex;align-items:center;gap:8px;font-size:14px}
-.card-rate b{font-variant-numeric:tabular-nums}
-.muted{color:var(--muted)}
-.card-meta{color:var(--muted);font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.chev{flex:none;color:var(--muted)}
+      .grid{list-style:none;margin:0;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(100%,310px),1fr))}
+      .card{display:flex;align-items:center;gap:14px;width:100%;padding:14px;text-align:left;border:1px solid var(--line);border-radius:20px;background:var(--surface);box-shadow:var(--shadow);transition:transform .15s,border-color .15s}
+      @media(hover:hover){.card:hover{transform:translateY(-2px);border-color:var(--accent)}}
+      .card:active{transform:scale(.99)}
+      .card-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px}
+      .card-title{font-weight:600;font-size:17px;line-height:1.25;overflow-wrap:anywhere}
+      .card-rate{display:flex;align-items:center;gap:8px;font-size:14px}
+      .card-rate b{font-variant-numeric:tabular-nums}
+      .muted{color:var(--muted)}
+      .card-meta{color:var(--muted);font-size:14px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+      .chev{flex:none;color:var(--muted)}
 
-.tile{flex:none;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font:700 22px var(--display);color:#14281f}
-.t0{background:linear-gradient(135deg,#c9efdd,#8fd8b9)}.t1{background:linear-gradient(135deg,#ffe6ad,#ffc760)}.t2{background:linear-gradient(135deg,#ffd0c0,#ff9f86)}.t3{background:linear-gradient(135deg,#dfd0f8,#b7a0ee)}.t4{background:linear-gradient(135deg,#c6e4f6,#8ec6ea)}.t5{background:linear-gradient(135deg,#f9cbdf,#ee98bf)}
+      .tile{flex:none;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font:700 22px var(--display);color:#14281f}
+      .t0{background:linear-gradient(135deg,#c9efdd,#8fd8b9)}.t1{background:linear-gradient(135deg,#ffe6ad,#ffc760)}.t2{background:linear-gradient(135deg,#ffd0c0,#ff9f86)}.t3{background:linear-gradient(135deg,#dfd0f8,#b7a0ee)}.t4{background:linear-gradient(135deg,#c6e4f6,#8ec6ea)}.t5{background:linear-gradient(135deg,#f9cbdf,#ee98bf)}
 
-.stars{--s:16px;display:inline-block;flex:none;width:calc(var(--s)*5);height:var(--s);background:linear-gradient(90deg,var(--gold) var(--pct,0%),var(--off) var(--pct,0%));-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-1.5 -1.5 27 27'%3E%3Cpath d='M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E") 0 0/var(--s) var(--s) repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-1.5 -1.5 27 27'%3E%3Cpath d='M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E") 0 0/var(--s) var(--s) repeat-x}
+      .stars{--s:16px;display:inline-block;flex:none;width:calc(var(--s)*5);height:var(--s);background:linear-gradient(90deg,var(--gold) var(--pct,0%),var(--off) var(--pct,0%));-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-1.5 -1.5 27 27'%3E%3Cpath d='M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E") 0 0/var(--s) var(--s) repeat-x;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-1.5 -1.5 27 27'%3E%3Cpath d='M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E") 0 0/var(--s) var(--s) repeat-x}
 
-.empty{padding:48px 8px;text-align:center;color:var(--muted)}
-.empty p{margin:0 0 14px}
+      .empty{padding:48px 8px;text-align:center;color:var(--muted)}
+      .empty p{margin:0 0 14px}
 
-dialog{border:0;padding:0;color:var(--ink);background:var(--surface);width:100%;max-width:100%;max-height:92vh;max-height:92dvh;margin:auto 0 0;border-radius:26px 26px 0 0;box-shadow:0 -10px 50px rgba(0,0,0,.25);overflow:hidden}
-dialog::backdrop{background:rgba(6,16,12,.5);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
-dialog[open]{display:flex;flex-direction:column;animation:sheet .28s cubic-bezier(.2,.8,.2,1)}
-@keyframes sheet{from{transform:translateY(28px);opacity:0}}
-@media(min-width:720px){dialog{margin:auto;width:min(560px,calc(100% - 48px));max-height:min(86dvh,780px);border-radius:26px}}
-.sheet-head{display:flex;align-items:center;gap:14px;padding:18px;border-bottom:1px solid var(--line)}
-.sheet-head>div{flex:1;min-width:0}
-.sheet-head h2{margin:4px 0 0;font:700 21px/1.2 var(--display);overflow-wrap:anywhere}
-.chip{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:var(--muted)}
-.chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
-.chip[data-s=cooked]::before{background:var(--accent)}
-.x{flex:none;width:40px;height:40px;border:0;border-radius:50%;background:var(--surface-2);display:grid;place-items:center}
-.sheet-body{overflow:auto;overscroll-behavior:contain;display:grid;gap:24px;padding:18px 18px calc(26px + env(safe-area-inset-bottom))}
-h3{margin:0 0 6px;font-size:15px;font-weight:600}
-h3 span{color:var(--muted);font-weight:500;margin-left:4px}
-.rating-main{display:flex;align-items:center;gap:14px}
-.rating-num{font:700 38px/1 var(--display);letter-spacing:-.02em}
-.rating-main>div{display:grid;gap:4px;font-size:13.5px;color:var(--muted)}
-.rating-by{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:14px}
-.by{display:grid;gap:6px;padding:12px;border-radius:14px;background:var(--surface-2)}
-.by-name{font-weight:600;font-size:14.5px}
-.by-val{display:flex;align-items:center;gap:8px;font-size:14px}
-.ing{list-style:none;margin:0;padding:0}
-.ing li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line)}
-.ing li:last-child{border-bottom:0}
-.qty{white-space:nowrap;font-weight:600;font-variant-numeric:tabular-nums}
-.qty span{color:var(--muted);font-weight:500}
-.notes{margin:0;white-space:pre-wrap;line-height:1.65;max-width:65ch}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-</style>
-</head>
-<body>
-<header class="wrap hero"><h1 id="title">Наші рецепти</h1></header>
+      dialog{border:0;padding:0;color:var(--ink);background:var(--surface);width:100%;max-width:100%;max-height:92vh;max-height:92dvh;margin:auto 0 0;border-radius:26px 26px 0 0;box-shadow:0 -10px 50px rgba(0,0,0,.25);overflow:hidden}
+      dialog::backdrop{background:rgba(6,16,12,.5);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+      dialog[open]{display:flex;flex-direction:column;animation:sheet .28s cubic-bezier(.2,.8,.2,1)}
+      @keyframes sheet{from{transform:translateY(28px);opacity:0}}
+      @media(min-width:720px){dialog{margin:auto;width:min(560px,calc(100% - 48px));max-height:min(86dvh,780px);border-radius:26px}}
+      .sheet-head{display:flex;align-items:center;gap:14px;padding:18px;border-bottom:1px solid var(--line)}
+      .sheet-head>div{flex:1;min-width:0}
+      .sheet-head h2{margin:4px 0 0;font:700 21px/1.2 var(--display);overflow-wrap:anywhere}
+      .chip{display:inline-flex;align-items:center;gap:7px;font-size:13.5px;color:var(--muted)}
+      .chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
+      .chip[data-s=cooked]::before{background:var(--accent)}
+      .x{flex:none;width:40px;height:40px;border:0;border-radius:50%;background:var(--surface-2);display:grid;place-items:center}
+      .sheet-body{overflow:auto;overscroll-behavior:contain;display:grid;gap:24px;padding:18px 18px calc(26px + env(safe-area-inset-bottom))}
+      h3{margin:0 0 6px;font-size:15px;font-weight:600}
+      h3 span{color:var(--muted);font-weight:500;margin-left:4px}
+      .rating-main{display:flex;align-items:center;gap:14px}
+      .rating-num{font:700 38px/1 var(--display);letter-spacing:-.02em}
+      .rating-main>div{display:grid;gap:4px;font-size:13.5px;color:var(--muted)}
+      .rating-by{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-top:14px}
+      .by{display:grid;gap:6px;padding:12px;border-radius:14px;background:var(--surface-2)}
+      .by-name{font-weight:600;font-size:14.5px}
+      .by-val{display:flex;align-items:center;gap:8px;font-size:14px}
+      .ing{list-style:none;margin:0;padding:0}
+      .ing li{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line)}
+      .ing li:last-child{border-bottom:0}
+      .qty{white-space:nowrap;font-weight:600;font-variant-numeric:tabular-nums}
+      .qty span{color:var(--muted);font-weight:500}
+      .notes{margin:0;white-space:pre-wrap;line-height:1.65;max-width:65ch}
 
-<div class="bar"><div class="wrap bar-in">
-  <label class="search">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-    <input id="q" type="search" placeholder="Пошук за назвою" aria-label="Пошук за назвою" autocomplete="off" enterkeyhint="search">
-    <button class="clear" id="clear" type="button" aria-label="Очистити пошук" hidden><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-  </label>
-  <div class="seg" id="seg" data-tab="cooked" role="tablist" aria-label="Списки рецептів">
-    <span class="thumb"></span>
-    <button role="tab" id="tab-cooked" data-tab="cooked" aria-selected="true">Вже готували <span class="count" id="n-cooked">0</span></button>
-    <button role="tab" id="tab-planned" data-tab="planned" aria-selected="false">У планах <span class="count" id="n-planned">0</span></button>
-  </div>
-</div></div>
+      :root{--danger:#c4402f;--on-danger:#fff}
+      @media(prefers-color-scheme:dark){:root{--danger:#ff8a78;--on-danger:#2a0d08}}
+      h1{margin:0}
+      .hero{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:18px}
+      .dl{position:relative;flex:none;height:44px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);display:flex;align-items:center;gap:8px;font-weight:500;font-size:14px}
+      .dl-t{display:none}
+      @media(min-width:520px){.dl-t{display:inline}}
+      .dl[data-dirty=true]::after{content:"";position:absolute;top:-3px;right:-3px;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid var(--bg)}
+      .cats{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;margin:4px 0 10px;border-bottom:1px solid var(--line)}
+      .cats::-webkit-scrollbar{display:none}
+      .cats button{flex:none;padding:10px 2px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;color:var(--muted);font-weight:600;font-size:15px}
+      .cats button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
+      .changes{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface-2)}
+      .link{flex:none;border:0;background:none;color:var(--accent);font-weight:600;text-decoration:underline;padding:6px}
+      main{padding-bottom:max(100px,calc(84px + env(safe-area-inset-bottom)))}
+      .fab{position:fixed;z-index:4;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));height:56px;padding:0 22px 0 18px;border:0;border-radius:99px;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;gap:8px;font-weight:600;font-size:16px;box-shadow:0 10px 28px -8px rgba(0,0,0,.45)}
+      .cat-tag{margin-left:8px;padding:2px 10px;border-radius:99px;background:var(--surface-2);font-size:12.5px;color:var(--muted)}
+      .sheet-foot{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 18px calc(14px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+      .btn{min-height:46px;padding:0 16px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);font-weight:600;font-size:15px}
+      .btn.primary{background:var(--accent);color:var(--on-accent);border-color:transparent}
+      .btn.wide{grid-column:1/-1}
+      .btn.danger{color:var(--danger)}
+      .btn.danger.armed{background:var(--danger);color:var(--on-danger);border-color:transparent}
+      .btn:disabled{opacity:.45;cursor:not-allowed}
+      #f{display:flex;flex-direction:column;min-height:0}
+      .fld{display:grid;gap:6px;margin:0;border:0;padding:0}
+      .fld>span{font-size:13.5px;color:var(--muted)}
+      .fld input,.fld textarea{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);font-size:16px}
+      .fld textarea{resize:vertical;min-height:96px;line-height:1.5}
+      .irow{display:grid;grid-template-columns:1fr 64px 64px 36px;gap:6px;margin-bottom:6px}
+      .irow input{padding:10px}
+      .x.sm{width:36px;height:36px;background:none;color:var(--muted)}
+      .rrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 0}
+      .rrow>span{font-weight:600}
+      .sin{display:flex}
+      .sbtn{width:40px;height:40px;padding:0;border:0;background:none;color:var(--off);display:grid;place-items:center}
+      .sbtn.on{color:var(--gold)}
+      .err{margin:0;color:var(--danger);font-size:14px}
+      @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+    </style>
+  </head>
+  <body>
+    <header class="wrap hero">
+      <h1 id="title">Наші рецепти</h1>
+      <button class="dl" id="dl" type="button" aria-label="Завантажити дані">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 4v11M7 11l5 5 5-5M5 20h14" /></svg
+        ><span class="dl-t">Завантажити дані</span>
+      </button>
+    </header>
 
-<main class="wrap">
-  <section class="filters" id="filters" aria-label="Фільтри за оцінкою">
-    <div class="frow"><span class="flabel" id="l-who">Чия оцінка</span><div class="pills" id="who" role="group" aria-labelledby="l-who"></div></div>
-    <div class="frow"><span class="flabel" id="l-min">Не менше</span><div class="pills" id="min" role="group" aria-labelledby="l-min"></div></div>
-  </section>
-  <p class="notice" id="notice" role="status" hidden></p>
-  <ul class="grid" id="grid" role="tabpanel"></ul>
-  <div class="empty" id="empty" hidden><p id="empty-text"></p><button class="pill" id="reset" type="button">Скинути пошук і фільтри</button></div>
-</main>
+    <div class="bar">
+      <div class="wrap bar-in">
+        <label class="search">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
+          <input
+            id="q"
+            type="search"
+            placeholder="Пошук за назвою"
+            aria-label="Пошук за назвою"
+            autocomplete="off"
+            enterkeyhint="search"
+          />
+          <button
+            class="clear"
+            id="clear"
+            type="button"
+            aria-label="Очистити пошук"
+            hidden
+          >
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </label>
+        <div
+          class="seg"
+          id="seg"
+          data-tab="cooked"
+          role="tablist"
+          aria-label="Списки рецептів"
+        >
+          <span class="thumb"></span>
+          <button
+            role="tab"
+            id="tab-cooked"
+            data-tab="cooked"
+            aria-selected="true"
+          >
+            Вже готували <span class="count" id="n-cooked">0</span>
+          </button>
+          <button
+            role="tab"
+            id="tab-planned"
+            data-tab="planned"
+            aria-selected="false"
+          >
+            У планах <span class="count" id="n-planned">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
 
-<dialog id="dlg" aria-labelledby="d-title">
-  <div class="sheet-head">
-    <span class="tile" id="d-tile"></span>
-    <div><span class="chip" id="d-status"></span><h2 id="d-title"></h2></div>
-    <button class="x" id="d-close" type="button" aria-label="Закрити"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-  </div>
-  <div class="sheet-body" id="d-body"></div>
-</dialog>
+    <main class="wrap">
+      <div class="cats" id="cats" role="tablist" aria-label="Категорії"></div>
+      <section class="filters" id="filters" aria-label="Фільтри за оцінкою">
+        <div class="frow">
+          <span class="flabel" id="l-who">Чия оцінка</span>
+          <div
+            class="pills"
+            id="who"
+            role="group"
+            aria-labelledby="l-who"
+          ></div>
+        </div>
+        <div class="frow">
+          <span class="flabel" id="l-min">Не менше</span>
+          <div
+            class="pills"
+            id="min"
+            role="group"
+            aria-labelledby="l-min"
+          ></div>
+        </div>
+      </section>
+      <p class="notice" id="notice" role="status" hidden></p>
+      <p class="notice changes" id="changes" hidden></p>
+      <ul class="grid" id="grid" role="tabpanel"></ul>
+      <div class="empty" id="empty" hidden>
+        <p id="empty-text"></p>
+        <button class="pill" id="reset" type="button">
+          Скинути пошук і фільтри
+        </button>
+      </div>
+    </main>
 
-<!-- Запасні дані: використовуються лише якщо data.json не завантажився (наприклад, відкрито файл подвійним кліком). Формат той самий. -->
-<script type="application/json" id="fallback-data">
-{
-  "title": "Наші рецепти",
-  "raters": [{ "id": "sasha", "name": "Саша" }, { "id": "nazar", "name": "Назар" }],
-  "recipes": [
-    {
-      "id": "draniki", "title": "Драники", "status": "cooked",
-      "ratings": { "sasha": 5, "nazar": 5 },
-      "ingredients": { "вода, ст. л.": 2, "картопля, кг": 1.2, "цибуля, шт.": 2, "борошно, ст. л.": 2, "сметана, ст. л.": 2, "фарш, г": 200, "яйце, шт.": 1 },
-      "notes": "Тестова нотатка. Сюди можна писати рецепт або що завгодно."
-    },
-    {
-      "id": "rulety-z-vitchynoyu", "title": "Рулети з вітчиною", "status": "planned",
-      "ingredients": { "вітчина, г": 200, "сир, г": 100, "варене яйце, шт.": 1, "слоєне тісто, пачка": 1, "томатний соус, г": 20, "сметана, г": 20 },
-      "notes": ""
-    }
-  ]
-}
-</script>
+    <dialog id="dlg" aria-labelledby="d-title">
+      <div class="sheet-head">
+        <span class="tile" id="d-tile"></span>
+        <div>
+          <span class="chip" id="d-status"></span
+          ><span class="cat-tag" id="d-cat"></span>
+          <h2 id="d-title"></h2>
+        </div>
+        <button class="x" id="d-close" type="button" aria-label="Закрити">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+      <div class="sheet-body" id="d-body"></div>
+      <div class="sheet-foot" id="d-foot"></div>
+    </dialog>
 
-<script>
-(() => {
-'use strict';
-const MAX = 5, STATUS = { cooked: 'Вже готували', planned: 'У планах' };
-const state = { tab: 'cooked', q: '', who: 'avg', min: 0 };
-let data, byId = new Map();
-const $ = id => document.getElementById(id);
-const dlg = $('dlg');
+    <dialog id="form" aria-labelledby="f-head">
+      <form id="f">
+        <div class="sheet-head">
+          <div><h2 id="f-head">Новий рецепт</h2></div>
+          <button class="x" id="f-close" type="button" aria-label="Закрити">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+        <div class="sheet-body" id="f-body">
+          <label class="fld"
+            ><span>Назва</span
+            ><input id="f-name" required maxlength="80" autocomplete="off"
+          /></label>
+          <div class="fld">
+            <span>Список</span>
+            <div class="pills" id="f-status"></div>
+          </div>
+          <label class="fld"
+            ><span>Категорія</span
+            ><input
+              id="f-cat"
+              list="cat-list"
+              required
+              maxlength="40"
+              autocomplete="off" /><datalist id="cat-list"></datalist
+          ></label>
+          <div class="fld" id="f-rate-wrap">
+            <span>Оцінки</span>
+            <div id="f-rates"></div>
+          </div>
+          <div class="fld">
+            <span>Інгредієнти</span>
+            <div id="f-ings"></div>
+            <div>
+              <button class="pill" id="f-add" type="button">
+                + Інгредієнт
+              </button>
+            </div>
+          </div>
+          <label class="fld"
+            ><span>Нотатки</span><textarea id="f-notes" rows="4"></textarea>
+          </label>
+          <p class="err" id="f-err" role="alert" hidden></p>
+        </div>
+        <div class="sheet-foot">
+          <button class="btn" id="f-cancel" type="button">Скасувати</button
+          ><button class="btn primary" type="submit">Зберегти</button>
+        </div>
+      </form>
+    </dialog>
 
-const el = (tag, props = {}, ...kids) => {
-  const n = document.createElement(tag);
-  for (const [k, v] of Object.entries(props)) if (v != null && v !== false) k === 'class' ? n.className = v : k === 'text' ? n.textContent = v : n.setAttribute(k, v);
-  n.append(...kids.flat().filter(Boolean));
-  return n;
-};
-const fmt = n => n.toLocaleString('uk-UA', { maximumFractionDigits: 2 });
-const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
-const hash = s => [...s].reduce((h, c) => (h * 31 + c.codePointAt(0)) >>> 0, 7);
-const slug = s => String(s || '').toLowerCase().trim().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '');
-const num = v => typeof v === 'number' && isFinite(v);
+    <dialog id="rate" aria-labelledby="rate-title">
+      <div class="sheet-head">
+        <div>
+          <span class="chip" data-s="cooked">Оцінки для переносу</span>
+          <h2 id="rate-title"></h2>
+        </div>
+        <button class="x" id="rate-x" type="button" aria-label="Закрити">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+      <div class="sheet-body" id="rate-rows"></div>
+      <div class="sheet-foot">
+        <button class="btn" id="rate-cancel" type="button">Скасувати</button
+        ><button class="btn primary" id="rate-save" type="button" disabled>
+          Перенести
+        </button>
+      </div>
+    </dialog>
 
-function normalize(raw) {
-  const raters = raw.raters?.length ? raw.raters : [{ id: 'sasha', name: 'Саша' }, { id: 'nazar', name: 'Назар' }];
-  const recipes = (raw.recipes || []).map((r, i) => ({
-    id: String(r.id || slug(r.title) || 'r' + i),
-    title: String(r.title || 'Без назви'),
-    status: r.status === 'cooked' ? 'cooked' : 'planned',
-    ratings: r.ratings || {},
-    notes: String(r.notes || '').trim(),
-    // ключ "назва, одиниця" → кількість
-    ingredients: Object.entries(r.ingredients || {}).map(([key, amount]) => {
-      const i = key.lastIndexOf(',');
-      return { name: (i < 0 ? key : key.slice(0, i)).trim(), unit: i < 0 ? '' : key.slice(i + 1).trim(), amount };
-    })
-  }));
-  return { title: raw.title || 'Наші рецепти', raters, recipes };
-}
+    <button class="fab" id="add" type="button">
+      <svg
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        aria-hidden="true"
+      >
+        <path d="M12 5v14M5 12h14" /></svg
+      >Додати
+    </button>
 
-const avg = r => {
-  const v = data.raters.map(p => r.ratings[p.id]).filter(num);
-  return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
-};
-const score = (r, who) => who === 'avg' ? avg(r) : (num(r.ratings[who]) ? r.ratings[who] : null);
+    <!-- Запасна копія data.json: потрібна лише коли файл не завантажився (наприклад, сторінку відкрито подвійним кліком). -->
+    <script type="application/json" id="fallback-data">
+      {
+        "title": "Наші рецепти",
+        "raters": [
+          { "id": "sasha", "name": "Саша" },
+          { "id": "nazar", "name": "Назар" }
+        ],
+        "categories": ["Основні страви", "Закуски", "Супи", "Десерти"],
+        "recipes": [
+          {
+            "id": "draniki",
+            "title": "Драники",
+            "status": "planned",
+            "category": "Основні страви",
+            "ingredients": {
+              "вода, ст. л.": 2,
+              "картопля, кг": 1.2,
+              "цибуля, шт.": 2,
+              "борошно, ст. л.": 2,
+              "сметана, ст. л.": 2,
+              "фарш, г": 200,
+              "яйце, шт.": 1
+            },
+            "notes": ""
+          },
+          {
+            "id": "rulety-z-vitchynoyu",
+            "title": "Рулети з вітчиною",
+            "status": "planned",
+            "category": "Закуски",
+            "ingredients": {
+              "вітчина, г": 200,
+              "сир, г": 100,
+              "варене яйце, шт.": 1,
+              "слоєне тісто, пачка": 1,
+              "томатний соус, г": 20,
+              "сметана, г": 20
+            },
+            "notes": ""
+          }
+        ]
+      }
+    </script>
 
-const stars = (v, s) => el('span', { class: 'stars', role: 'img', 'aria-label': `Оцінка ${fmt(v)} з ${MAX}`, style: `--pct:${Math.min(1, Math.max(0, v / MAX)) * 100}%;--s:${s}px` });
-const tile = (r, extra = '') => ({ class: `tile t${hash(r.id) % 6} ${extra}`, text: [...r.title][0].toUpperCase(), 'aria-hidden': 'true' });
-const CHEV = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+    <script>
+      (() => {
+      'use strict';
+      const MAX = 5, STATUS = { cooked: 'Вже готували', planned: 'У планах' };
+      const SRC = new URLSearchParams(location.search).get('data') === 'demo' ? 'data.demo.json' : 'data.json';
+      const KEY = 'recipe-changes:' + SRC;
+      const state = { tab: 'cooked', cat: 'all', q: '', who: 'avg', min: 0 };
+      let rawBase, mergedRaw, data, byId = new Map(), catSig = '', changes = { upserts: {}, deleted: [] }, fs = {}, rateDone = () => {};
+      const $ = id => document.getElementById(id);
+      const dlg = $('dlg'), formDlg = $('form'), rateDlg = $('rate');
 
-const matches = r => !state.q.trim() || r.title.toLocaleLowerCase('uk').includes(state.q.trim().toLocaleLowerCase('uk'));
-const passes = r => r.status !== 'cooked' || !state.min || (score(r, state.who) ?? -1) >= state.min;
-const visible = tab => data.recipes.filter(r => r.status === tab && matches(r) && passes(r));
+      const el = (tag, props = {}, ...kids) => {
+        const n = document.createElement(tag);
+        for (const [k, v] of Object.entries(props)) {
+          if (v == null || v === false) continue;
+          if (k === 'class') n.className = v;
+          else if (k === 'text') n.textContent = v;
+          else if (k.startsWith('on')) n.addEventListener(k.slice(2), v);
+          else n.setAttribute(k, v);
+        }
+        n.append(...kids.flat().filter(Boolean));
+        return n;
+      };
+      const fmt = n => n.toLocaleString('uk-UA', { maximumFractionDigits: 2 });
+      const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+      const hash = s => [...s].reduce((h, c) => (h * 31 + c.codePointAt(0)) >>> 0, 7);
+      const slug = s => String(s || '').toLowerCase().trim().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '');
+      const uid = () => 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+      const num = v => typeof v === 'number' && isFinite(v);
+      const X = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+      const CHEV = '<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
+      const STAR = '<svg viewBox="-1.5 -1.5 27 27" width="32" height="32" aria-hidden="true"><path fill="currentColor" d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
 
-function card(r) {
-  const rate = r.status === 'cooked' ? avg(r) : null;
-  const names = r.ingredients.map(i => i.name);
-  const meta = names.length ? cap(names.slice(0, 3).join(', ')) + (names.length > 3 ? ` та ще ${names.length - 3}` : '') : 'Без інгредієнтів';
-  const btn = el('button', { class: 'card', type: 'button' },
-    el('span', tile(r)),
-    el('span', { class: 'card-body' },
-      el('span', { class: 'card-title', text: r.title }),
-      r.status === 'cooked' && (rate == null
-        ? el('span', { class: 'card-rate muted', text: 'Без оцінки' })
-        : el('span', { class: 'card-rate' }, stars(rate, 16), el('b', { text: fmt(rate) }))),
-      el('span', { class: 'card-meta', text: meta })));
-  btn.insertAdjacentHTML('beforeend', CHEV.replace('<svg', '<svg class="chev"'));
-  btn.addEventListener('click', () => openRecipe(r));
-  return el('li', {}, btn);
-}
+      const show = d => { document.documentElement.classList.add('locked'); d.showModal(); };
 
-function render() {
-  const cooked = visible('cooked'), planned = visible('planned');
-  $('n-cooked').textContent = cooked.length;
-  $('n-planned').textContent = planned.length;
-  $('seg').dataset.tab = state.tab;
-  for (const t of ['cooked', 'planned']) {
-    const b = $('tab-' + t); b.setAttribute('aria-selected', state.tab === t);
-  }
-  $('grid').setAttribute('aria-labelledby', 'tab-' + state.tab);
-  $('filters').hidden = state.tab !== 'cooked';
-  document.querySelectorAll('#who .pill').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === state.who));
-  document.querySelectorAll('#min .pill').forEach(b => b.setAttribute('aria-pressed', +b.dataset.v === state.min));
-  $('clear').hidden = !state.q;
+      /* ---------- дані: файл + локальні зміни ---------- */
+      function normalize(raw) {
+        const raters = raw.raters?.length ? raw.raters : [{ id: 'sasha', name: 'Саша' }, { id: 'nazar', name: 'Назар' }];
+        const recipes = (raw.recipes || []).map(r => ({
+          id: r.id,
+          title: String(r.title || 'Без назви'),
+          status: r.status === 'cooked' ? 'cooked' : 'planned',
+          category: String(r.category || 'Інше'),
+          ratings: r.ratings || {},
+          notes: String(r.notes || '').trim(),
+          ingredients: Object.entries(r.ingredients || {}).map(([key, amount]) => {
+            const i = key.lastIndexOf(',');
+            return { name: (i < 0 ? key : key.slice(0, i)).trim(), unit: i < 0 ? '' : key.slice(i + 1).trim(), amount };
+          })
+        }));
+        const categories = [...new Set([...(raw.categories || []), ...recipes.map(r => r.category)])];
+        return { title: raw.title || 'Наші рецепти', raters, categories, recipes };
+      }
+      const toRaw = r => ({
+        id: r.id, title: r.title, status: r.status, category: r.category, ratings: r.ratings,
+        ingredients: Object.fromEntries(r.ingredients.map(i => [i.unit ? `${i.name}, ${i.unit}` : i.name, i.amount])),
+        notes: r.notes
+      });
+      function rebuild() {
+        const del = new Set(changes.deleted), up = changes.upserts, seen = new Set();
+        const list = rawBase.recipes.filter(r => !del.has(r.id)).map(r => (seen.add(r.id), up[r.id] || r));
+        Object.entries(up).forEach(([id, r]) => seen.has(id) || list.push(r));
+        mergedRaw = list;
+        data = normalize({ ...rawBase, recipes: list });
+        byId = new Map(data.recipes.map(r => [r.id, r]));
+      }
+      const nChanges = () => Object.keys(changes.upserts).length + changes.deleted.length;
+      function commit() {
+        try { localStorage.setItem(KEY, JSON.stringify(changes)); } catch { alert('Браузер не дозволив зберегти зміни локально. Завантажте дані, щоб нічого не втратити.'); }
+        rebuild(); render();
+      }
+      const upsert = raw => { changes.deleted = changes.deleted.filter(i => i !== raw.id); changes.upserts[raw.id] = raw; };
+      const remove = id => {
+        delete changes.upserts[id];
+        if (rawBase.recipes.some(r => r.id === id) && !changes.deleted.includes(id)) changes.deleted.push(id);
+      };
+      function download() {
+        const out = { title: data.title, raters: data.raters, categories: data.categories, recipes: mergedRaw };
+        const a = el('a', { href: URL.createObjectURL(new Blob([JSON.stringify(out, null, 2) + '\n'], { type: 'application/json' })), download: SRC });
+        document.body.append(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      }
+      function resetChanges() {
+        if (!confirm(`Скинути всі локальні зміни? Дані повернуться до стану з ${SRC}.`)) return;
+        changes = { upserts: {}, deleted: [] }; commit();
+      }
 
-  const items = state.tab === 'cooked' ? cooked : planned;
-  $('grid').replaceChildren(...items.map(card));
-  const total = data.recipes.filter(r => r.status === state.tab).length;
-  const filtered = state.q.trim() || (state.tab === 'cooked' && state.min);
-  $('empty').hidden = items.length > 0;
-  if (!items.length) {
-    $('empty-text').textContent = !total
-      ? (state.tab === 'cooked' ? 'Приготованих страв поки немає.' : 'У планах поки порожньо.')
-      : 'Нічого не знайдено. Спробуйте іншу назву або послабте фільтри.';
-    $('reset').hidden = !total || !filtered;
-  }
-}
+      /* ---------- відображення ---------- */
+      const avg = r => {
+        const v = data.raters.map(p => r.ratings[p.id]).filter(num);
+        return v.length ? v.reduce((a, b) => a + b, 0) / v.length : null;
+      };
+      const score = (r, who) => who === 'avg' ? avg(r) : (num(r.ratings[who]) ? r.ratings[who] : null);
+      const stars = (v, s) => el('span', { class: 'stars', role: 'img', 'aria-label': `Оцінка ${fmt(v)} з ${MAX}`, style: `--pct:${Math.min(1, Math.max(0, v / MAX)) * 100}%;--s:${s}px` });
+      const tile = r => ({ class: `tile t${hash(r.id) % 6}`, text: [...r.title][0].toUpperCase(), 'aria-hidden': 'true' });
 
-function openRecipe(r) {
-  $('d-tile').className = tile(r).class;
-  $('d-tile').textContent = tile(r).text;
-  const st = $('d-status'); st.dataset.s = r.status; st.textContent = STATUS[r.status];
-  $('d-title').textContent = r.title;
+      const matches = r => !state.q.trim() || r.title.toLocaleLowerCase('uk').includes(state.q.trim().toLocaleLowerCase('uk'));
+      const passes = r => r.status !== 'cooked' || !state.min || (score(r, state.who) ?? -1) >= state.min;
+      const visible = tab => data.recipes.filter(r => r.status === tab && (state.cat === 'all' || r.category === state.cat) && matches(r) && passes(r));
 
-  const body = [];
-  if (r.status === 'cooked') {
-    const a = avg(r);
-    body.push(el('section', {},
-      el('div', { class: 'rating-main' },
-        el('span', { class: 'rating-num', text: a == null ? '—' : fmt(a) }),
-        el('div', {}, a != null && stars(a, 26), el('span', { text: 'Загальна оцінка' }))),
-      el('div', { class: 'rating-by' }, data.raters.map(p => {
-        const v = r.ratings[p.id];
-        return el('div', { class: 'by' },
-          el('span', { class: 'by-name', text: p.name }),
-          num(v) ? el('span', { class: 'by-val' }, stars(v, 16), el('b', { text: fmt(v) })) : el('span', { class: 'by-val muted', text: 'Без оцінки' }));
-      }))));
-  }
-  if (r.ingredients.length) {
-    body.push(el('section', {},
-      el('h3', { text: 'Інгредієнти' }, el('span', { text: r.ingredients.length })),
-      el('ul', { class: 'ing' }, r.ingredients.map(i => el('li', {},
-        el('span', { text: cap(i.name) }),
-        el('span', { class: 'qty' }, typeof i.amount === 'number' ? fmt(i.amount) : String(i.amount ?? ''), i.unit && el('span', { text: ' ' + i.unit })))))));
-  }
-  if (r.notes) body.push(el('section', {}, el('h3', { text: 'Нотатки' }), el('p', { class: 'notes', text: r.notes })));
+      function card(r) {
+        const rate = r.status === 'cooked' ? avg(r) : null;
+        const names = r.ingredients.map(i => i.name);
+        const meta = names.length ? cap(names.slice(0, 3).join(', ')) + (names.length > 3 ? ` та ще ${names.length - 3}` : '') : 'Без інгредієнтів';
+        const btn = el('button', { class: 'card', type: 'button', onclick: () => openRecipe(r) },
+          el('span', tile(r)),
+          el('span', { class: 'card-body' },
+            el('span', { class: 'card-title', text: r.title }),
+            r.status === 'cooked' && (rate == null
+              ? el('span', { class: 'card-rate muted', text: 'Без оцінки' })
+              : el('span', { class: 'card-rate' }, stars(rate, 16), el('b', { text: fmt(rate) }))),
+            el('span', { class: 'card-meta', text: meta })));
+        btn.insertAdjacentHTML('beforeend', CHEV);
+        return el('li', {}, btn);
+      }
 
-  $('d-body').replaceChildren(...body);
-  $('d-body').scrollTop = 0;
-  document.documentElement.classList.add('locked');
-  dlg.showModal();
-}
+      function render() {
+        if (state.cat !== 'all' && !data.categories.includes(state.cat)) state.cat = 'all';
+        const sig = data.categories.join('|');
+        if (sig !== catSig) {
+          catSig = sig;
+          $('cats').replaceChildren(...['all', ...data.categories].map(c => el('button', { type: 'button', role: 'tab', 'data-c': c, text: c === 'all' ? 'Усі' : c })));
+        }
+        document.querySelectorAll('#cats button').forEach(b => b.setAttribute('aria-selected', b.dataset.c === state.cat));
 
-async function load() {
-  try {
-    const res = await fetch('data.json', { cache: 'no-cache' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    return { raw: await res.json(), fallback: false };
-  } catch (err) {
-    console.warn('data.json не завантажився, використано вбудовані дані:', err);
-    return { raw: JSON.parse($('fallback-data').textContent), fallback: true };
-  }
-}
+        const cooked = visible('cooked'), planned = visible('planned');
+        $('n-cooked').textContent = cooked.length;
+        $('n-planned').textContent = planned.length;
+        $('seg').dataset.tab = state.tab;
+        for (const t of ['cooked', 'planned']) $('tab-' + t).setAttribute('aria-selected', state.tab === t);
+        $('grid').setAttribute('aria-labelledby', 'tab-' + state.tab);
+        $('filters').hidden = state.tab !== 'cooked';
+        document.querySelectorAll('#who .pill').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === state.who));
+        document.querySelectorAll('#min .pill').forEach(b => b.setAttribute('aria-pressed', +b.dataset.v === state.min));
+        $('clear').hidden = !state.q;
 
-(async () => {
-  const { raw, fallback } = await load();
-  data = normalize(raw);
-  data.recipes.forEach(r => byId.set(r.id, r));
-  document.title = data.title; $('title').textContent = data.title;
-  if (fallback) { $('notice').hidden = false; $('notice').textContent = 'data.json не завантажився, тому показано вбудовані тестові дані.'; }
+        const items = state.tab === 'cooked' ? cooked : planned;
+        $('grid').replaceChildren(...items.map(card));
+        const total = data.recipes.filter(r => r.status === state.tab).length;
+        const filtered = state.q.trim() || state.cat !== 'all' || (state.tab === 'cooked' && state.min);
+        $('empty').hidden = items.length > 0;
+        if (!items.length) {
+          $('empty-text').textContent = !total
+            ? (state.tab === 'cooked' ? 'Приготованих страв поки немає.' : 'У планах поки порожньо.')
+            : 'Нічого не знайдено. Спробуйте іншу назву або послабте фільтри.';
+          $('reset').hidden = !total || !filtered;
+        }
 
-  const pill = (label, v, star) => el('button', { class: 'pill', type: 'button', 'data-v': v, 'aria-pressed': 'false' }, star && el('i', { text: '★ ' }), label);
-  $('who').replaceChildren(...[{ id: 'avg', name: 'Загальна' }, ...data.raters].map(p => pill(p.name, p.id)));
-  $('min').replaceChildren(pill('Усі', 0), pill('3+', 3, 1), pill('4+', 4, 1), pill('5', 5, 1));
+        const n = nChanges();
+        $('dl').dataset.dirty = n > 0;
+        $('changes').hidden = !n;
+        if (n) $('changes').replaceChildren(`Локальних змін: ${n}. Завантажте дані й замініть ними ${SRC} на сайті.`, el('button', { class: 'link', type: 'button', text: 'Скинути', onclick: resetChanges }));
+      }
 
-  $('who').addEventListener('click', e => { const b = e.target.closest('.pill'); if (b) { state.who = b.dataset.v; render(); } });
-  $('min').addEventListener('click', e => { const b = e.target.closest('.pill'); if (b) { state.min = +b.dataset.v; render(); } });
-  $('seg').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) { state.tab = b.dataset.tab; render(); } });
-  $('q').addEventListener('input', e => { state.q = e.target.value; render(); });
-  $('clear').addEventListener('click', () => { state.q = ''; $('q').value = ''; render(); $('q').focus(); });
-  $('reset').addEventListener('click', () => { Object.assign(state, { q: '', who: 'avg', min: 0 }); $('q').value = ''; render(); });
+      function openRecipe(r) {
+        $('d-tile').className = tile(r).class;
+        $('d-tile').textContent = tile(r).text;
+        const st = $('d-status'); st.dataset.s = r.status; st.textContent = STATUS[r.status];
+        $('d-cat').textContent = r.category;
+        $('d-title').textContent = r.title;
 
-  $('d-close').addEventListener('click', () => dlg.close());
-  dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
-  dlg.addEventListener('close', () => document.documentElement.classList.remove('locked'));
-  render();
-})();
-})();
-</script>
-</body>
+        const body = [];
+        if (r.status === 'cooked') {
+          const a = avg(r);
+          body.push(el('section', {},
+            el('div', { class: 'rating-main' },
+              el('span', { class: 'rating-num', text: a == null ? '—' : fmt(a) }),
+              el('div', {}, a != null && stars(a, 26), el('span', { text: 'Загальна оцінка' }))),
+            el('div', { class: 'rating-by' }, data.raters.map(p => {
+              const v = r.ratings[p.id];
+              return el('div', { class: 'by' },
+                el('span', { class: 'by-name', text: p.name }),
+                num(v) ? el('span', { class: 'by-val' }, stars(v, 16), el('b', { text: fmt(v) })) : el('span', { class: 'by-val muted', text: 'Без оцінки' }));
+            }))));
+        }
+        if (r.ingredients.length) {
+          body.push(el('section', {},
+            el('h3', { text: 'Інгредієнти' }, el('span', { text: r.ingredients.length })),
+            el('ul', { class: 'ing' }, r.ingredients.map(i => el('li', {},
+              el('span', { text: cap(i.name) }),
+              el('span', { class: 'qty' }, typeof i.amount === 'number' ? fmt(i.amount) : String(i.amount ?? ''), i.unit && el('span', { text: ' ' + i.unit })))))));
+        }
+        if (r.notes) body.push(el('section', {}, el('h3', { text: 'Нотатки' }), el('p', { class: 'notes', text: r.notes })));
+        $('d-body').replaceChildren(...body);
+        $('d-body').scrollTop = 0;
+
+        const move = el('button', { class: 'btn primary wide', type: 'button', text: r.status === 'cooked' ? 'Повернути в «У планах»' : 'Перенести в «Вже готували»', onclick: () => moveTo(r) });
+        const del = el('button', { class: 'btn danger', type: 'button', text: 'Видалити' });
+        let armed = false, timer;
+        del.addEventListener('click', () => {
+          if (!armed) {
+            armed = true; del.textContent = 'Точно видалити?'; del.classList.add('armed');
+            timer = setTimeout(() => { armed = false; del.textContent = 'Видалити'; del.classList.remove('armed'); }, 3000);
+            return;
+          }
+          clearTimeout(timer); dlg.close(); remove(r.id); commit();
+        });
+        $('d-foot').replaceChildren(move, el('button', { class: 'btn', type: 'button', text: 'Редагувати', onclick: () => { dlg.close(); openForm(r); } }), del);
+        if (!dlg.open) show(dlg);
+      }
+
+      function moveTo(r) {
+        const finish = raw => { upsert(raw); state.tab = raw.status; commit(); openRecipe(byId.get(r.id)); };
+        if (r.status === 'cooked') return finish({ ...toRaw(r), status: 'planned' });
+        askRatings(r, ratings => finish({ ...toRaw(r), status: 'cooked', ratings }));
+      }
+
+      /* ---------- оцінки (зірки) ---------- */
+      function starInput(value, onSet, label) {
+        const g = el('div', { class: 'sin', role: 'radiogroup', 'aria-label': label });
+        const paint = v => g.replaceChildren(...[1, 2, 3, 4, 5].map(n => {
+          const b = el('button', { type: 'button', class: 'sbtn' + (n <= v ? ' on' : ''), role: 'radio', 'aria-checked': String(n === v), 'aria-label': `${n} з ${MAX}` });
+          b.innerHTML = STAR;
+          b.addEventListener('click', () => { onSet(n); paint(n); });
+          return b;
+        }));
+        paint(value || 0);
+        return g;
+      }
+      function askRatings(r, done) {
+        const v = {}; data.raters.forEach(p => { if (num(r.ratings[p.id])) v[p.id] = r.ratings[p.id]; });
+        const ok = () => data.raters.every(p => num(v[p.id]));
+        const save = $('rate-save'); save.disabled = !ok();
+        $('rate-title').textContent = r.title;
+        $('rate-rows').replaceChildren(...data.raters.map(p => el('div', { class: 'rrow' }, el('span', { text: p.name }),
+          starInput(v[p.id], n => { v[p.id] = n; save.disabled = !ok(); }, 'Оцінка: ' + p.name))));
+        rateDone = () => { rateDlg.close(); done({ ...v }); };
+        show(rateDlg);
+      }
+
+      /* ---------- форма додавання / редагування ---------- */
+      const ingRow = (i = {}) => {
+        const rm = el('button', { type: 'button', class: 'x sm', 'aria-label': 'Прибрати інгредієнт' });
+        rm.innerHTML = X;
+        const row = el('div', { class: 'irow' },
+          el('input', { class: 'i-name', placeholder: 'Назва', 'aria-label': 'Назва інгредієнта', maxlength: 60, value: i.name || '' }),
+          el('input', { class: 'i-amt', placeholder: 'К-сть', 'aria-label': 'Кількість', inputmode: 'decimal', value: i.amount == null ? '' : String(i.amount) }),
+          el('input', { class: 'i-unit', placeholder: 'Од.', 'aria-label': 'Одиниця', maxlength: 20, value: i.unit || '' }), rm);
+        rm.addEventListener('click', () => row.remove());
+        return row;
+      };
+      const drawStatus = () => $('f-status').replaceChildren(...Object.entries(STATUS).map(([k, label]) =>
+        el('button', { type: 'button', class: 'pill', 'aria-pressed': String(fs.status === k), text: label, onclick: () => { fs.status = k; drawStatus(); drawRates(); } })));
+      const drawRates = () => {
+        $('f-rate-wrap').hidden = fs.status !== 'cooked';
+        $('f-rates').replaceChildren(...data.raters.map(p => el('div', { class: 'rrow' }, el('span', { text: p.name }),
+          starInput(fs.ratings[p.id], n => { fs.ratings[p.id] = n; $('f-err').hidden = true; }, 'Оцінка: ' + p.name))));
+      };
+      function openForm(r) {
+        fs = { id: r?.id, status: r?.status || state.tab, ratings: { ...(r?.ratings || {}) } };
+        $('f-head').textContent = r ? 'Редагування' : 'Новий рецепт';
+        $('f-name').value = r?.title || '';
+        $('f-cat').value = r?.category || (state.cat !== 'all' ? state.cat : data.categories[0] || '');
+        $('cat-list').replaceChildren(...data.categories.map(c => el('option', { value: c })));
+        $('f-notes').value = r?.notes || '';
+        $('f-ings').replaceChildren(...(r?.ingredients.length ? r.ingredients : [{}]).map(ingRow));
+        $('f-err').hidden = true;
+        drawStatus(); drawRates();
+        $('f-body').scrollTop = 0;
+        show(formDlg);
+      }
+      $('f').addEventListener('submit', e => {
+        e.preventDefault();
+        const title = $('f-name').value.trim(), category = $('f-cat').value.trim();
+        if (!title || !category) return;
+        if (fs.status === 'cooked' && !data.raters.every(p => num(fs.ratings[p.id]))) {
+          $('f-err').textContent = 'Для приготованого рецепта виставте оцінки від усіх.'; $('f-err').hidden = false; return;
+        }
+        const ingredients = {};
+        document.querySelectorAll('#f-ings .irow').forEach(row => {
+          const name = row.querySelector('.i-name').value.trim();
+          if (!name) return;
+          const a = row.querySelector('.i-amt').value.trim().replace(',', '.'), unit = row.querySelector('.i-unit').value.trim();
+          ingredients[unit ? `${name}, ${unit}` : name] = a !== '' && isFinite(+a) ? +a : a;
+        });
+        const id = fs.id || uid();
+        upsert({ id, title, status: fs.status, category, ratings: fs.ratings, ingredients, notes: $('f-notes').value.trim() });
+        state.tab = fs.status; if (state.cat !== 'all') state.cat = category;
+        formDlg.close(); commit(); openRecipe(byId.get(id));
+      });
+
+      /* ---------- запуск ---------- */
+      async function load() {
+        try {
+          const res = await fetch(SRC, { cache: 'no-cache' });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return { raw: await res.json(), fallback: false };
+        } catch (err) {
+          console.warn(SRC + ' не завантажився:', err);
+          return { raw: SRC === 'data.json' ? JSON.parse($('fallback-data').textContent) : { recipes: [] }, fallback: true };
+        }
+      }
+
+      (async () => {
+        const { raw, fallback } = await load();
+        rawBase = raw; rawBase.recipes = (raw.recipes || []).map((r, i) => ({ ...r, id: String(r.id || slug(r.title) || 'r' + i) }));
+        try { const c = JSON.parse(localStorage.getItem(KEY)); if (c) changes = { upserts: c.upserts || {}, deleted: c.deleted || [] }; } catch {}
+        rebuild();
+        state.tab = data.recipes.some(r => r.status === 'cooked') ? 'cooked' : 'planned';
+        document.title = data.title; $('title').textContent = data.title;
+        if (fallback) { $('notice').hidden = false; $('notice').textContent = SRC === 'data.json' ? 'data.json не завантажився, тому показано вбудовані дані.' : `${SRC} не завантажився (потрібен сервер або GitHub Pages).`; }
+
+        const pill = (label, v, star) => el('button', { class: 'pill', type: 'button', 'data-v': v, 'aria-pressed': 'false' }, star && el('i', { text: '★ ' }), label);
+        $('who').replaceChildren(...[{ id: 'avg', name: 'Загальна' }, ...data.raters].map(p => pill(p.name, p.id)));
+        $('min').replaceChildren(pill('Усі', 0), pill('3+', 3, 1), pill('4+', 4, 1), pill('5', 5, 1));
+
+        $('who').addEventListener('click', e => { const b = e.target.closest('.pill'); if (b) { state.who = b.dataset.v; render(); } });
+        $('min').addEventListener('click', e => { const b = e.target.closest('.pill'); if (b) { state.min = +b.dataset.v; render(); } });
+        $('seg').addEventListener('click', e => { const b = e.target.closest('[data-tab]'); if (b) { state.tab = b.dataset.tab; render(); } });
+        $('cats').addEventListener('click', e => { const b = e.target.closest('[data-c]'); if (b) { state.cat = b.dataset.c; render(); } });
+        $('q').addEventListener('input', e => { state.q = e.target.value; render(); });
+        $('clear').addEventListener('click', () => { state.q = ''; $('q').value = ''; render(); $('q').focus(); });
+        $('reset').addEventListener('click', () => { Object.assign(state, { q: '', cat: 'all', who: 'avg', min: 0 }); $('q').value = ''; render(); });
+        $('dl').addEventListener('click', download);
+        $('add').addEventListener('click', () => openForm());
+        $('f-add').addEventListener('click', () => { const row = ingRow(); $('f-ings').append(row); row.firstChild.focus(); });
+        $('rate-save').addEventListener('click', () => rateDone());
+
+        for (const [d, closers] of [[dlg, ['d-close']], [formDlg, ['f-close', 'f-cancel']], [rateDlg, ['rate-x', 'rate-cancel']]]) {
+          closers.forEach(id => $(id).addEventListener('click', () => d.close()));
+          d.addEventListener('close', () => { if (!document.querySelector('dialog[open]')) document.documentElement.classList.remove('locked'); });
+        }
+        [dlg, rateDlg].forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+        render();
+      })();
+      })();
+    </script>
+  </body>
 </html>
