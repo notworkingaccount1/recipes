@@ -128,9 +128,9 @@
       .dl-t{display:none}
       @media(min-width:520px){.dl-t{display:inline}}
       .dl[data-dirty=true]::after{content:"";position:absolute;top:-3px;right:-3px;width:11px;height:11px;border-radius:50%;background:var(--gold);border:2px solid var(--bg)}
-      .cats{display:flex;gap:18px;overflow-x:auto;scrollbar-width:none;margin:4px 0 10px;border-bottom:1px solid var(--line)}
+      .cats{display:flex;gap:18px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;margin:4px 0 10px;box-shadow:inset 0 -1px 0 var(--line)}
       .cats::-webkit-scrollbar{display:none}
-      .cats button{flex:none;padding:10px 2px;border:0;border-bottom:2px solid transparent;margin-bottom:-1px;background:none;color:var(--muted);font-weight:600;font-size:15px}
+      .cats button{flex:none;padding:10px 2px;border:0;border-bottom:2px solid transparent;background:none;color:var(--muted);font-weight:600;font-size:15px}
       .cats button[aria-selected=true]{color:var(--ink);border-bottom-color:var(--accent)}
       .changes{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--surface-2)}
       .link{flex:none;border:0;background:none;color:var(--accent);font-weight:600;text-decoration:underline;padding:6px}
@@ -147,6 +147,7 @@
       #f,#cf{display:flex;flex-direction:column;min-height:0}
       .crow{display:grid;grid-template-columns:1fr auto;gap:8px}
       .cats .add{color:var(--accent)}
+      .cats button:focus-visible{outline-offset:-2px}
       .fld{display:grid;gap:6px;margin:0;border:0;padding:0}
       .fld>span{font-size:13.5px;color:var(--muted)}
       .fld input,.fld textarea,.fld select{width:100%;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);color:inherit;font-size:16px}
