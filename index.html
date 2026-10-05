@@ -144,7 +144,7 @@
       .btn.danger{color:var(--danger)}
       .btn.danger.armed{background:var(--danger);color:var(--on-danger);border-color:transparent}
       .btn:disabled{opacity:.45;cursor:not-allowed}
-      #f,#cf{display:flex;flex-direction:column;min-height:0}
+      #f,#cf,#sf{display:flex;flex-direction:column;min-height:0}
       .crow{display:grid;grid-template-columns:1fr auto;gap:8px}
       .cats .add{color:var(--accent)}
       .cats button:focus-visible{outline-offset:-2px}
@@ -161,27 +161,71 @@
       .sbtn{width:40px;height:40px;padding:0;border:0;background:none;color:var(--off);display:grid;place-items:center}
       .sbtn.on{color:var(--gold)}
       .err{margin:0;color:var(--danger);font-size:14px}
+      .hbtns{display:flex;gap:8px}
+      .tools{display:flex;gap:8px;margin:6px 0 4px}
+      .tools .pill{display:inline-flex;align-items:center;gap:8px}
+      .count:empty{display:none}
+      .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+      .hint{margin:0;font-size:13px;color:var(--muted);line-height:1.4}
+      .hint.ok{color:var(--accent)}
+      .h3row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+      .h3row h3{margin:0}
+      .pill.sm{min-height:34px;padding:4px 12px;font-size:13.5px}
+      .chips{display:flex;flex-wrap:wrap;gap:6px}
+      .sq{width:100%;height:46px;padding:0 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface-2);font-size:16px;-webkit-appearance:none;appearance:none}
+      .lrow{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+      .lrow input{width:22px;height:22px;accent-color:var(--accent);flex:none}
+      .lrow .nm{flex:1}
+      .lrow .q{color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+      .lrow.done .nm{text-decoration:line-through;color:var(--muted)}
+      .cook{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+      .cook>button:first-child{flex:1;min-width:0;display:grid;gap:2px;padding:0;border:0;background:none;text-align:left}
+      details summary{cursor:pointer;color:var(--muted);padding:8px 0}
+      .acts{display:flex;gap:6px;flex:none}
       @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
     </style>
   </head>
   <body>
     <header class="wrap hero">
       <h1 id="title">Наші рецепти</h1>
-      <button class="dl" id="dl" type="button" aria-label="Завантажити дані">
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
+      <div class="hbtns">
+        <button
+          class="dl"
+          id="set-btn"
+          type="button"
+          aria-label="Налаштування GitHub"
+          title="Налаштування GitHub"
         >
-          <path d="M12 4v11M7 11l5 5 5-5M5 20h14" /></svg
-        ><span class="dl-t">Завантажити дані</span>
-      </button>
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M4 7h10M18 7h2M4 17h2M10 17h10" />
+            <circle cx="16" cy="7" r="2" />
+            <circle cx="8" cy="17" r="2" />
+          </svg></button
+        ><button class="dl" id="dl" type="button" aria-label="Завантажити дані">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 4v11M7 11l5 5 5-5M5 20h14" /></svg
+          ><span class="dl-t">Завантажити дані</span>
+        </button>
+      </div>
     </header>
 
     <div class="bar">
@@ -258,6 +302,11 @@
     </div>
 
     <main class="wrap">
+      <div class="tools">
+        <button class="pill" id="open-shop" type="button">
+          Покупки <span class="count" id="n-shop"></span></button
+        ><button class="pill" id="open-pan" type="button">Комора</button>
+      </div>
       <div class="cats" id="cats" role="tablist" aria-label="Категорії"></div>
       <section class="filters" id="filters" aria-label="Фільтри за оцінкою">
         <div class="frow">
@@ -445,6 +494,132 @@
       </form>
     </dialog>
 
+    <datalist id="dl-names"></datalist><datalist id="dl-units"></datalist>
+
+    <dialog id="pan" aria-labelledby="pan-h">
+      <div class="sheet-head">
+        <div>
+          <h2 id="pan-h">Комора</h2>
+          <span class="hint" id="pan-sync"></span>
+        </div>
+        <button class="x" id="pan-x" type="button" aria-label="Закрити">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+      <div class="sheet-body" id="pan-body"></div>
+    </dialog>
+
+    <dialog id="shop" aria-labelledby="shop-h">
+      <div class="sheet-head">
+        <div>
+          <h2 id="shop-h">Покупки</h2>
+          <span class="hint" id="shop-sync"></span>
+        </div>
+        <button class="x" id="shop-x" type="button" aria-label="Закрити">
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+      <div class="sheet-body" id="shop-body"></div>
+      <div class="sheet-foot">
+        <button class="btn" id="shop-copy" type="button">Копіювати</button
+        ><button class="btn primary" id="shop-bought" type="button">
+          Відмічене в комору
+        </button>
+      </div>
+    </dialog>
+
+    <dialog id="set" aria-labelledby="set-h">
+      <form id="sf">
+        <div class="sheet-head">
+          <div><h2 id="set-h">Налаштування GitHub</h2></div>
+          <button class="x" id="set-x" type="button" aria-label="Закрити">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              aria-hidden="true"
+            >
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+        </div>
+        <div class="sheet-body">
+          <label class="fld"
+            ><span>Репозиторій (власник/назва)</span
+            ><input
+              id="s-repo"
+              placeholder="user/recipes"
+              autocomplete="off"
+              autocapitalize="off"
+          /></label>
+          <div class="two">
+            <label class="fld"
+              ><span>Гілка сайту</span
+              ><input
+                id="s-branch"
+                autocomplete="off"
+                autocapitalize="off" /></label
+            ><label class="fld"
+              ><span>Гілка даних</span
+              ><input id="s-dbranch" autocomplete="off" autocapitalize="off"
+            /></label>
+          </div>
+          <label class="fld"
+            ><span>Папка з сайтом (порожньо = корінь)</span
+            ><input
+              id="s-dir"
+              placeholder="docs/"
+              autocomplete="off"
+              autocapitalize="off"
+          /></label>
+          <label class="fld"
+            ><span>Токен</span
+            ><input
+              id="s-token"
+              type="password"
+              autocomplete="off"
+              placeholder="github_pat_…"
+          /></label>
+          <p class="hint">
+            Потрібен fine-grained токен лише на цей репозиторій з правом
+            Contents: Read and write. Він зберігається тільки в цьому браузері й
+            нікуди не комітиться. Не вставляйте його на чужих пристроях.
+          </p>
+          <p class="err" id="s-msg" role="alert" hidden></p>
+        </div>
+        <div class="sheet-foot">
+          <button class="btn" id="set-cancel" type="button">Скасувати</button
+          ><button class="btn primary" type="submit">Зберегти</button>
+        </div>
+      </form>
+    </dialog>
+
     <button class="fab" id="add" type="button">
       <svg
         width="22"
@@ -514,7 +689,7 @@
       const state = { tab: 'cooked', cat: 'all', q: '', who: 'avg', min: 0 };
       let rawBase, mergedRaw, data, byId = new Map(), catSig = '', changes = { upserts: {}, deleted: [], cats: [] }, fs = {}, rateDone = () => {}, catDone = () => {};
       const $ = id => document.getElementById(id);
-      const dlg = $('dlg'), formDlg = $('form'), rateDlg = $('rate'), catDlg = $('catdlg');
+      const dlg = $('dlg'), formDlg = $('form'), rateDlg = $('rate'), catDlg = $('catdlg'), panDlg = $('pan'), shopDlg = $('shop'), setDlg = $('set');
 
       const el = (tag, props = {}, ...kids) => {
         const n = document.createElement(tag);
@@ -534,6 +709,9 @@
       const slug = s => String(s || '').toLowerCase().trim().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '');
       const uid = () => 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
       const num = v => typeof v === 'number' && isFinite(v);
+      const nkey = s => String(s).toLowerCase().replace(/ё/g, 'е').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+      const UNIT = { пкт: 'пачка', пчк: 'пачка', зуб: 'зубчик' };
+      const ukey = u => { const k = String(u).toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ''); return UNIT[k] || k; };
       const X = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
       const CHEV = '<svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>';
       const STAR = '<svg viewBox="-1.5 -1.5 27 27" width="32" height="32" aria-hidden="true"><path fill="currentColor" d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
@@ -654,10 +832,13 @@
           $('reset').hidden = !total || !filtered;
         }
 
-        const n = nChanges();
-        $('dl').dataset.dirty = n > 0;
+        const n = nChanges(), waiting = n && changes.pub === JSON.stringify(mergedRaw);
+        $('dl').dataset.dirty = !!n && !waiting;
         $('changes').hidden = !n;
-        if (n) $('changes').replaceChildren(`Локальних змін: ${n}. Завантажте дані й замініть ними ${SRC} на сайті.`, el('button', { class: 'link', type: 'button', text: 'Скинути', onclick: resetChanges }));
+        if (n) $('changes').replaceChildren(
+          waiting ? 'Опубліковано. Сайт оновиться за 1–2 хвилини, а поки що ви бачите свою версію.' : `Локальних змін: ${n}.`,
+          !waiting && el('span', { class: 'acts' }, el('button', { class: 'link', type: 'button', text: 'Опублікувати', onclick: publish }), el('button', { class: 'link', type: 'button', text: 'Скинути', onclick: resetChanges })));
+        updateTools();
       }
 
       function openRecipe(r) {
@@ -683,7 +864,7 @@
         }
         if (r.ingredients.length) {
           body.push(el('section', {},
-            el('h3', { text: 'Інгредієнти' }, el('span', { text: r.ingredients.length })),
+            el('div', { class: 'h3row' }, el('h3', { text: 'Інгредієнти' }, el('span', { text: r.ingredients.length })), r.status === 'planned' && shopBtn(r)),
             el('ul', { class: 'ing' }, r.ingredients.map(i => el('li', {},
               el('span', { text: cap(i.name) }),
               el('span', { class: 'qty' }, typeof i.amount === 'number' ? fmt(i.amount) : String(i.amount ?? ''), i.unit && el('span', { text: ' ' + i.unit })))))));
@@ -757,9 +938,9 @@
         const rm = el('button', { type: 'button', class: 'x sm', 'aria-label': 'Прибрати інгредієнт' });
         rm.innerHTML = X;
         const row = el('div', { class: 'irow' },
-          el('input', { class: 'i-name', placeholder: 'Назва', 'aria-label': 'Назва інгредієнта', maxlength: 60, value: i.name || '' }),
+          el('input', { class: 'i-name', list: 'dl-names', placeholder: 'Назва', 'aria-label': 'Назва інгредієнта', maxlength: 60, value: i.name || '' }),
           el('input', { class: 'i-amt', placeholder: 'К-сть', 'aria-label': 'Кількість', inputmode: 'decimal', value: i.amount == null ? '' : String(i.amount) }),
-          el('input', { class: 'i-unit', placeholder: 'Од.', 'aria-label': 'Одиниця', maxlength: 20, value: i.unit || '' }), rm);
+          el('input', { class: 'i-unit', list: 'dl-units', placeholder: 'Од.', 'aria-label': 'Одиниця', maxlength: 20, value: i.unit || '' }), rm);
         rm.addEventListener('click', () => row.remove());
         return row;
       };
@@ -775,6 +956,9 @@
         $('f-head').textContent = r ? 'Редагування' : 'Новий рецепт';
         $('f-name').value = r?.title || '';
         fillCats(r?.category || (state.cat !== 'all' ? state.cat : data.categories[0] || ''));
+        $('dl-names').replaceChildren(...[...names()].map(([, n]) => el('option', { value: n })));
+        const us = new Map(); data.recipes.forEach(x => x.ingredients.forEach(i => i.unit && !us.has(ukey(i.unit)) && us.set(ukey(i.unit), i.unit)));
+        $('dl-units').replaceChildren(...[...us.values()].map(u => el('option', { value: u })));
         $('f-notes').value = r?.notes || '';
         $('f-ings').replaceChildren(...(r?.ingredients.length ? r.ingredients : [{}]).map(ingRow));
         $('f-err').hidden = true;
@@ -789,18 +973,204 @@
         if (fs.status === 'cooked' && !data.raters.every(p => num(fs.ratings[p.id]))) {
           $('f-err').textContent = 'Для приготованого рецепта виставте оцінки від усіх.'; $('f-err').hidden = false; return;
         }
-        const ingredients = {};
+        const ingredients = {}, seen = {};
         document.querySelectorAll('#f-ings .irow').forEach(row => {
           const name = row.querySelector('.i-name').value.trim();
           if (!name) return;
           const a = row.querySelector('.i-amt').value.trim().replace(',', '.'), unit = row.querySelector('.i-unit').value.trim();
-          ingredients[unit ? `${name}, ${unit}` : name] = a !== '' && isFinite(+a) ? +a : a;
+          const val = a !== '' && isFinite(+a) ? +a : a, k = nkey(name) + '|' + ukey(unit);
+          if (seen[k]) { const key0 = seen[k]; if (num(ingredients[key0]) && num(val)) ingredients[key0] = Math.round((ingredients[key0] + val) * 1000) / 1000; else if (val !== '') ingredients[key0] = val; return; }
+          seen[k] = unit ? `${name}, ${unit}` : name; ingredients[seen[k]] = val;
         });
         const id = fs.id || uid();
         upsert({ id, title, status: fs.status, category, ratings: fs.ratings, ingredients, notes: $('f-notes').value.trim() });
         state.tab = fs.status; if (state.cat !== 'all') state.cat = category;
         formDlg.close(); commit(); openRecipe(byId.get(id));
       });
+
+      /* ---------- GitHub: публікація та спільні комора/покупки ---------- */
+      const gh = { repo: '', branch: 'main', dataBranch: 'data', dir: '', token: '' };
+      if (location.hostname.endsWith('.github.io')) gh.repo = location.hostname.split('.')[0] + '/' + (location.pathname.split('/')[1] || location.hostname);
+      try { Object.assign(gh, JSON.parse(localStorage.getItem('recipe-gh') || '{}')); } catch {}
+
+      async function api(path, method = 'GET', body) {
+        const res = await fetch(`https://api.github.com/repos/${gh.repo}${path}`, {
+          method, cache: 'no-store', body: body && JSON.stringify(body),
+          headers: { Accept: 'application/vnd.github+json', ...(gh.token ? { Authorization: 'Bearer ' + gh.token } : {}), ...(body ? { 'Content-Type': 'application/json' } : {}) }
+        });
+        if (res.status === 404) return null;
+        if (!res.ok) throw new Error(res.status + ' ' + ((await res.json().catch(() => ({}))).message || ''));
+        return res.json();
+      }
+      const b64e = s => btoa(unescape(encodeURIComponent(s)));
+      const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\n/g, '')), c => c.charCodeAt(0)));
+      const getFile = async (path, branch) => { const f = await api(`/contents/${path}?ref=${encodeURIComponent(branch)}`); return f && f.content != null ? { sha: f.sha, json: JSON.parse(b64d(f.content)) } : null; };
+      const putFile = (path, branch, obj, sha, message) => api('/contents/' + path, 'PUT', { message, branch, sha, content: b64e(JSON.stringify(obj, null, 2) + '\n') });
+      async function ensureBranch(branch) {
+        if (await api('/branches/' + encodeURIComponent(branch))) return;
+        const head = await api('/git/ref/heads/' + gh.branch);
+        if (!head) throw new Error('не знайдено гілку ' + gh.branch);
+        await api('/git/refs', 'POST', { ref: 'refs/heads/' + branch, sha: head.object.sha });
+      }
+
+      function openSettings(msg) {
+        $('s-repo').value = gh.repo; $('s-branch').value = gh.branch; $('s-dbranch').value = gh.dataBranch; $('s-dir').value = gh.dir; $('s-token').value = gh.token;
+        $('s-msg').hidden = !msg; $('s-msg').textContent = msg || '';
+        show(setDlg);
+      }
+      $('sf').addEventListener('submit', e => {
+        e.preventDefault();
+        const repo = $('s-repo').value.trim().replace(/^https?:\/\/github\.com\//, '').replace(/\/$/, '');
+        if (repo && !/^[\w.-]+\/[\w.-]+$/.test(repo)) { $('s-msg').textContent = 'Репозиторій має виглядати як власник/назва.'; $('s-msg').hidden = false; return; }
+        let dir = $('s-dir').value.trim().replace(/^\/+/, '');
+        if (dir && !dir.endsWith('/')) dir += '/';
+        Object.assign(gh, { repo, dir, branch: $('s-branch').value.trim() || 'main', dataBranch: $('s-dbranch').value.trim() || 'data', token: $('s-token').value.trim() });
+        try { localStorage.setItem('recipe-gh', JSON.stringify(gh)); } catch {}
+        setDlg.close(); render(); pullShared();
+      });
+
+      async function publish(e) {
+        if (!gh.repo || !gh.token) return openSettings('Для публікації вкажіть репозиторій і токен.');
+        const btn = e?.currentTarget;
+        if (btn) { btn.disabled = true; btn.textContent = 'Публікуємо…'; }
+        try {
+          const path = gh.dir + SRC, cur = await getFile(path, gh.branch);
+          if (cur) { // зміни накладаємо на свіжу версію з GitHub, щоб не затерти чужі правки
+            rawBase = { ...cur.json, recipes: (cur.json.recipes || []).map((r, i) => ({ ...r, id: String(r.id || slug(r.title) || 'r' + i) })) };
+            rebuild();
+          }
+          await putFile(path, gh.branch, { title: data.title, raters: data.raters, categories: data.categories, recipes: mergedRaw }, cur?.sha, 'Оновлення рецептів');
+          changes.pub = JSON.stringify(mergedRaw); commit();
+        } catch (err) {
+          alert('Не вдалося опублікувати: ' + err.message);
+          if (btn) { btn.disabled = false; btn.textContent = 'Опублікувати'; }
+        }
+      }
+
+      /* спільний стан: комора, вибрані рецепти, відмітки «куплено» */
+      let sync = 'ok', touched = {}, shTimer, panTab = 'stock', panQ = '', shared = { pantry: new Set(), shop: new Set(), checked: new Set() };
+      const KIND = { p: 'pantry', s: 'shop', c: 'checked' };
+      const syncText = () => !gh.repo ? 'Зберігається лише на цьому пристрої'
+        : !gh.token ? 'Лише читання з GitHub. Для збереження потрібен токен у налаштуваннях'
+        : sync === 'pending' ? 'Зберігаємо…' : sync.startsWith('err') ? 'Помилка синхронізації: ' + sync.slice(3) : 'Синхронізовано';
+      function loadShared() {
+        try { const c = JSON.parse(localStorage.getItem('recipe-shared')); if (c) { shared = { pantry: new Set(c.pantry), shop: new Set(c.shop), checked: new Set(c.checked) }; touched = c.touched || {}; } } catch {}
+      }
+      const persistShared = () => { try { localStorage.setItem('recipe-shared', JSON.stringify({ pantry: [...shared.pantry], shop: [...shared.shop], checked: [...shared.checked], touched })); } catch {} };
+      function mergeShared(r = {}) { // стан з GitHub + ще не відправлені локальні зміни
+        shared = { pantry: new Set(r.pantry), shop: new Set(r.shopRecipes), checked: new Set(r.checked) };
+        for (const [k, on] of Object.entries(touched)) shared[KIND[k[0]]][on ? 'add' : 'delete'](k.slice(2));
+      }
+      function updateTools() {
+        $('n-shop').textContent = [...shared.shop].filter(id => byId.get(id)?.status === 'planned').length || '';
+        $('pan-sync').textContent = $('shop-sync').textContent = syncText();
+      }
+      function refreshShared() {
+        updateTools();
+        if (panDlg.open && document.activeElement?.type !== 'search') renderPantry();
+        if (shopDlg.open) renderShop();
+      }
+      function setShared(kind, key, on) {
+        shared[KIND[kind]][on ? 'add' : 'delete'](key);
+        touched[kind + ':' + key] = on;
+        persistShared(); updateTools();
+        clearTimeout(shTimer);
+        if (!gh.repo || !gh.token) return;
+        sync = 'pending'; updateTools();
+        shTimer = setTimeout(pushShared, 1200);
+      }
+      async function pushShared() {
+        const sent = { ...touched };
+        try {
+          const cur = await getFile('pantry.json', gh.dataBranch);
+          mergeShared(cur?.json);
+          if (!cur) await ensureBranch(gh.dataBranch);
+          await putFile('pantry.json', gh.dataBranch, { pantry: [...shared.pantry].sort(), shopRecipes: [...shared.shop], checked: [...shared.checked] }, cur?.sha, 'Оновлення комори');
+          for (const k in sent) if (touched[k] === sent[k]) delete touched[k];
+          sync = 'ok';
+        } catch (err) { sync = 'err' + err.message; }
+        persistShared(); refreshShared();
+      }
+      async function pullShared() {
+        if (!gh.repo) return updateTools();
+        try { const cur = await getFile('pantry.json', gh.dataBranch); if (cur) { mergeShared(cur.json); persistShared(); } sync = 'ok'; }
+        catch (err) { sync = 'err' + err.message; }
+        refreshShared();
+      }
+
+      const names = () => {
+        const m = new Map();
+        data.recipes.forEach(r => r.ingredients.forEach(i => { const k = nkey(i.name); if (k && !m.has(k)) m.set(k, cap(i.name)); }));
+        return new Map([...m].sort((a, b) => a[1].localeCompare(b[1], 'uk')));
+      };
+      function aggregate() {
+        const map = new Map();
+        for (const id of shared.shop) {
+          const r = byId.get(id);
+          if (!r || r.status !== 'planned') continue;
+          for (const i of r.ingredients) {
+            const k = nkey(i.name) + '|' + ukey(i.unit);
+            let e = map.get(k);
+            if (!e) map.set(k, e = { k, pk: nkey(i.name), name: cap(i.name), unit: i.unit, sum: 0, hasNum: false });
+            if (num(i.amount)) { e.sum += i.amount; e.hasNum = true; }
+          }
+        }
+        return [...map.values()];
+      }
+      const qty = e => e.hasNum ? `${fmt(e.sum)} ${e.unit}`.trim() : e.unit;
+      const shopBtn = r => {
+        const label = () => shared.shop.has(r.id) ? 'В покупках' : '+ У покупки';
+        const b = el('button', { type: 'button', class: 'pill sm', 'aria-pressed': String(shared.shop.has(r.id)), text: label() });
+        b.addEventListener('click', () => { setShared('s', r.id, !shared.shop.has(r.id)); b.setAttribute('aria-pressed', String(shared.shop.has(r.id))); b.textContent = label(); refreshShared(); });
+        return b;
+      };
+
+      function renderPantry() {
+        const tabs = el('div', { class: 'pills' }, [['stock', 'Що є вдома'], ['cook', 'Що приготувати']].map(([k, t]) =>
+          el('button', { type: 'button', class: 'pill', 'aria-pressed': String(panTab === k), text: t, onclick: () => { panTab = k; renderPantry(); } })));
+        const out = [tabs];
+        if (panTab === 'stock') {
+          const q = el('input', { type: 'search', class: 'sq', placeholder: 'Знайти продукт', 'aria-label': 'Знайти продукт', value: panQ, autocomplete: 'off' });
+          const chips = el('div', { class: 'chips' });
+          const draw = () => chips.replaceChildren(...[...names()].filter(([k]) => k.includes(nkey(panQ))).map(([k, n]) =>
+            el('button', { type: 'button', class: 'pill', 'aria-pressed': String(shared.pantry.has(k)), text: n, onclick: ev => { const on = !shared.pantry.has(k); setShared('p', k, on); ev.currentTarget.setAttribute('aria-pressed', String(on)); } })));
+          q.addEventListener('input', () => { panQ = q.value; draw(); });
+          draw();
+          out.push(el('p', { class: 'hint', text: 'Відмічайте, що є вдома. Комора спільна для всіх, хто підключив токен.' }), q, chips);
+        } else {
+          const rows = data.recipes.filter(r => r.status === 'planned')
+            .map(r => ({ r, need: r.ingredients.filter(i => num(i.amount) && !shared.pantry.has(nkey(i.name))) }))
+            .sort((a, b) => a.need.length - b.need.length || a.r.title.localeCompare(b.r.title, 'uk'));
+          out.push(el('p', { class: 'hint', text: 'Рецепти з «У планах», яким бракує найменше. Інгредієнти «за смаком» не рахуються.' }),
+            rows.length ? el('div', {}, rows.map(({ r, need }) => el('div', { class: 'cook' },
+              el('button', { type: 'button', onclick: () => openRecipe(r) }, el('b', { text: r.title }),
+                el('span', need.length ? { class: 'hint', text: `Бракує ${need.length}: ` + cap(need.slice(0, 4).map(i => i.name).join(', ')) + (need.length > 4 ? '…' : '') } : { class: 'hint ok', text: 'Все є вдома' })),
+              el('button', { type: 'button', class: 'pill sm', 'aria-pressed': String(shared.shop.has(r.id)), text: shared.shop.has(r.id) ? 'В покупках' : '+ У покупки', onclick: () => { setShared('s', r.id, !shared.shop.has(r.id)); renderPantry(); } }))))
+              : el('p', { class: 'hint', text: 'У планах поки порожньо.' }));
+        }
+        $('pan-body').replaceChildren(...out);
+        updateTools();
+      }
+
+      function renderShop() {
+        const items = aggregate(), have = items.filter(e => shared.pantry.has(e.pk));
+        const buy = items.filter(e => !shared.pantry.has(e.pk)).sort((a, b) => shared.checked.has(a.k) - shared.checked.has(b.k) || a.name.localeCompare(b.name, 'uk'));
+        const sel = [...shared.shop].map(id => byId.get(id)).filter(r => r?.status === 'planned');
+        const row = (e, box) => el('label', { class: 'lrow' + (box && shared.checked.has(e.k) ? ' done' : '') },
+          box && el('input', { type: 'checkbox', checked: shared.checked.has(e.k), onchange: ev => { setShared('c', e.k, ev.target.checked); renderShop(); } }),
+          el('span', { class: 'nm', text: e.name }), el('span', { class: 'q', text: qty(e) }));
+        $('shop-body').replaceChildren(
+          sel.length ? el('section', {}, el('h3', { text: 'Рецепти' }), el('div', { class: 'chips' }, sel.map(r =>
+              el('button', { type: 'button', class: 'pill sm', text: r.title + ' ×', 'aria-label': 'Прибрати ' + r.title, onclick: () => { setShared('s', r.id, false); renderShop(); } }))))
+            : el('p', { class: 'hint', text: 'Список порожній. Додайте рецепти кнопкою «+ У покупки» в картці рецепта або в Коморі, вкладка «Що приготувати».' }),
+          buy.length && el('section', {}, el('h3', { text: 'Купити' }), buy.map(e => row(e, true))),
+          sel.length && !buy.length && el('p', { class: 'hint ok', text: 'Усе вже є вдома.' }),
+          have.length && el('details', {}, el('summary', { text: `Вже є вдома (${have.length})` }), have.map(e => row(e, false))),
+          sel.length && el('button', { class: 'link', type: 'button', text: 'Очистити список', onclick: () => { [...shared.shop].forEach(id => setShared('s', id, false)); [...shared.checked].forEach(k => setShared('c', k, false)); renderShop(); } }));
+        $('shop-bought').disabled = !buy.some(e => shared.checked.has(e.k));
+        $('shop-copy').disabled = !buy.length;
+        updateTools();
+      }
 
       /* ---------- запуск ---------- */
       async function load() {
@@ -817,8 +1187,14 @@
       (async () => {
         const { raw, fallback } = await load();
         rawBase = raw; rawBase.recipes = (raw.recipes || []).map((r, i) => ({ ...r, id: String(r.id || slug(r.title) || 'r' + i) }));
-        try { const c = JSON.parse(localStorage.getItem(KEY)); if (c) changes = { upserts: c.upserts || {}, deleted: c.deleted || [], cats: c.cats || [] }; } catch {}
+        try { const c = JSON.parse(localStorage.getItem(KEY)); if (c) changes = { upserts: c.upserts || {}, deleted: c.deleted || [], cats: c.cats || [], pub: c.pub }; } catch {}
         rebuild();
+        // якщо опубліковані правки вже є в завантаженому файлі, локальний diff більше не потрібен
+        if (nChanges() && JSON.stringify(mergedRaw) === JSON.stringify(rawBase.recipes) && changes.cats.every(c => (rawBase.categories || []).includes(c))) {
+          changes = { upserts: {}, deleted: [], cats: [] };
+          try { localStorage.setItem(KEY, JSON.stringify(changes)); } catch {}
+          rebuild();
+        }
         state.tab = data.recipes.some(r => r.status === 'cooked') ? 'cooked' : 'planned';
         document.title = data.title; $('title').textContent = data.title;
         if (fallback) { $('notice').hidden = false; $('notice').textContent = SRC === 'data.json' ? 'data.json не завантажився, тому показано вбудовані дані.' : `${SRC} не завантажився (потрібен сервер або GitHub Pages).`; }
@@ -840,12 +1216,25 @@
         $('f-add').addEventListener('click', () => { const row = ingRow(); $('f-ings').append(row); row.firstChild.focus(); });
         $('rate-save').addEventListener('click', () => rateDone());
 
-        for (const [d, closers] of [[dlg, ['d-close']], [formDlg, ['f-close', 'f-cancel']], [rateDlg, ['rate-x', 'rate-cancel']], [catDlg, ['cat-x', 'cat-cancel']]]) {
+        for (const [d, closers] of [[dlg, ['d-close']], [formDlg, ['f-close', 'f-cancel']], [rateDlg, ['rate-x', 'rate-cancel']], [catDlg, ['cat-x', 'cat-cancel']], [panDlg, ['pan-x']], [shopDlg, ['shop-x']], [setDlg, ['set-x', 'set-cancel']]]) {
           closers.forEach(id => $(id).addEventListener('click', () => d.close()));
           d.addEventListener('close', () => { if (!document.querySelector('dialog[open]')) document.documentElement.classList.remove('locked'); });
         }
-        [dlg, rateDlg].forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+        [dlg, rateDlg, panDlg, shopDlg].forEach(d => d.addEventListener('click', e => { if (e.target === d) d.close(); }));
+        $('open-pan').addEventListener('click', () => { renderPantry(); show(panDlg); pullShared(); });
+        $('open-shop').addEventListener('click', () => { renderShop(); show(shopDlg); pullShared(); });
+        $('set-btn').addEventListener('click', () => openSettings());
+        $('shop-bought').addEventListener('click', () => {
+          aggregate().filter(e => !shared.pantry.has(e.pk) && shared.checked.has(e.k)).forEach(e => { setShared('p', e.pk, true); setShared('c', e.k, false); });
+          renderShop();
+        });
+        $('shop-copy').addEventListener('click', async e => {
+          const b = e.currentTarget, lines = aggregate().filter(x => !shared.pantry.has(x.pk) && !shared.checked.has(x.k)).map(x => '- ' + `${x.name} ${qty(x)}`.trim());
+          try { await navigator.clipboard.writeText(lines.join('\n')); b.textContent = 'Скопійовано'; setTimeout(() => { b.textContent = 'Копіювати'; }, 1500); } catch { alert(lines.join('\n')); }
+        });
+        loadShared();
         render();
+        pullShared();
       })();
       })();
     </script>
