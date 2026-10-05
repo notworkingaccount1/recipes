@@ -548,6 +548,17 @@
         "Абрикос, шт": 12
       },
       "notes": ""
+    },
+    {
+      "id": "rmuva9tderad",
+      "title": "тестова страва",
+      "status": "planned",
+      "category": "Основні страви",
+      "ratings": {},
+      "ingredients": {
+        "інгридієнт1, шт": 1
+      },
+      "notes": "міні нотатка"
     }
   ]
 }
