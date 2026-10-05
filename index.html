@@ -518,6 +518,11 @@
         </button>
       </div>
       <div class="sheet-body" id="pan-body"></div>
+      <div class="sheet-foot">
+        <button class="btn primary wide" id="pan-sync-btn" type="button">
+          Синхронізувати
+        </button>
+      </div>
     </dialog>
 
     <dialog id="shop" aria-labelledby="shop-h">
@@ -545,7 +550,9 @@
       <div class="sheet-foot">
         <button class="btn" id="shop-copy" type="button">Копіювати</button
         ><button class="btn primary" id="shop-bought" type="button">
-          Відмічене в комору
+          Відмічене в комору</button
+        ><button class="btn wide" id="shop-sync-btn" type="button">
+          Синхронізувати
         </button>
       </div>
     </dialog>
@@ -703,13 +710,15 @@
         n.append(...kids.flat().filter(Boolean));
         return n;
       };
+      const fill = (node, ...kids) => node.replaceChildren(...kids.flat().filter(Boolean));
       const fmt = n => n.toLocaleString('uk-UA', { maximumFractionDigits: 2 });
       const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
       const hash = s => [...s].reduce((h, c) => (h * 31 + c.codePointAt(0)) >>> 0, 7);
       const slug = s => String(s || '').toLowerCase().trim().replace(/[^\p{L}\p{N}]+/gu, '-').replace(/^-|-$/g, '');
       const uid = () => 'r' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
       const num = v => typeof v === 'number' && isFinite(v);
-      const nkey = s => String(s).toLowerCase().replace(/ё/g, 'е').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+      const ALIAS = { 'яйця': 'яйце', 'яйца': 'яйце', 'чеснок': 'часник', 'помидори': 'помідори', 'помидорами': 'помідори', 'помидор': 'помідори', 'томати': 'помідори', 'соль': 'сіль', 'яблоки': 'яблука', 'ваніліний цукор': 'ванільний цукор', 'сухарі паніровачні': 'паніровальні сухарі', 'перець': 'чорний перець' };
+      const nkey = s => { const k = String(s).toLowerCase().replace(/ё/g, 'е').replace(/[^\p{L}\p{N}]+/gu, ' ').trim(); return ALIAS[k] || k; };
       const UNIT = { пкт: 'пачка', пчк: 'пачка', зуб: 'зубчик' };
       const ukey = u => { const k = String(u).toLowerCase().replace(/[^\p{L}\p{N}]+/gu, ''); return UNIT[k] || k; };
       const X = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
@@ -835,7 +844,7 @@
         const n = nChanges(), waiting = n && changes.pub === JSON.stringify(mergedRaw);
         $('dl').dataset.dirty = !!n && !waiting;
         $('changes').hidden = !n;
-        if (n) $('changes').replaceChildren(
+        if (n) fill($('changes'),
           waiting ? 'Опубліковано. Сайт оновиться за 1–2 хвилини, а поки що ви бачите свою версію.' : `Локальних змін: ${n}.`,
           !waiting && el('span', { class: 'acts' }, el('button', { class: 'link', type: 'button', text: 'Опублікувати', onclick: publish }), el('button', { class: 'link', type: 'button', text: 'Скинути', onclick: resetChanges })));
         updateTools();
@@ -1052,7 +1061,8 @@
       const KIND = { p: 'pantry', s: 'shop', c: 'checked' };
       const syncText = () => !gh.repo ? 'Зберігається лише на цьому пристрої'
         : !gh.token ? 'Лише читання з GitHub. Для збереження потрібен токен у налаштуваннях'
-        : sync === 'pending' ? 'Зберігаємо…' : sync.startsWith('err') ? 'Помилка синхронізації: ' + sync.slice(3) : 'Синхронізовано';
+        : sync === 'busy' ? 'Синхронізуємо…' : sync.startsWith('err') ? 'Помилка синхронізації: ' + sync.slice(3)
+        : Object.keys(touched).length ? `Не синхронізовано змін: ${Object.keys(touched).length}` : 'Синхронізовано';
       function loadShared() {
         try { const c = JSON.parse(localStorage.getItem('recipe-shared')); if (c) { shared = { pantry: new Set(c.pantry), shop: new Set(c.shop), checked: new Set(c.checked) }; touched = c.touched || {}; } } catch {}
       }
@@ -1074,18 +1084,18 @@
         shared[KIND[kind]][on ? 'add' : 'delete'](key);
         touched[kind + ':' + key] = on;
         persistShared(); updateTools();
-        clearTimeout(shTimer);
-        if (!gh.repo || !gh.token) return;
-        sync = 'pending'; updateTools();
-        shTimer = setTimeout(pushShared, 1200);
       }
       async function pushShared() {
         const sent = { ...touched };
+        sync = 'busy'; updateTools();
         try {
           const cur = await getFile('pantry.json', gh.dataBranch);
           mergeShared(cur?.json);
-          if (!cur) await ensureBranch(gh.dataBranch);
-          await putFile('pantry.json', gh.dataBranch, { pantry: [...shared.pantry].sort(), shopRecipes: [...shared.shop], checked: [...shared.checked] }, cur?.sha, 'Оновлення комори');
+          const next = { pantry: [...shared.pantry].sort(), shopRecipes: [...shared.shop], checked: [...shared.checked] };
+          if (Object.keys(sent).length && JSON.stringify(next) !== JSON.stringify(cur?.json)) { // коміт лише коли справді є що змінити
+            if (!cur) await ensureBranch(gh.dataBranch);
+            await putFile('pantry.json', gh.dataBranch, next, cur?.sha, 'Оновлення комори');
+          }
           for (const k in sent) if (touched[k] === sent[k]) delete touched[k];
           sync = 'ok';
         } catch (err) { sync = 'err' + err.message; }
@@ -1098,6 +1108,13 @@
         refreshShared();
       }
 
+      async function syncNow(e) {
+        if (!gh.repo || !gh.token) return openSettings('Для синхронізації вкажіть репозиторій і токен.');
+        const b = e.currentTarget, t = b.textContent;
+        b.disabled = true; b.textContent = 'Синхронізуємо…';
+        await pushShared();
+        b.disabled = false; b.textContent = t;
+      }
       const names = () => {
         const m = new Map();
         data.recipes.forEach(r => r.ingredients.forEach(i => { const k = nkey(i.name); if (k && !m.has(k)) m.set(k, cap(i.name)); }));
@@ -1109,15 +1126,21 @@
           const r = byId.get(id);
           if (!r || r.status !== 'planned') continue;
           for (const i of r.ingredients) {
-            const k = nkey(i.name) + '|' + ukey(i.unit);
+            const f = FAM[ukey(i.unit)], k = nkey(i.name) + '|' + (f ? f[0] : ukey(i.unit));
             let e = map.get(k);
-            if (!e) map.set(k, e = { k, pk: nkey(i.name), name: cap(i.name), unit: i.unit, sum: 0, hasNum: false });
-            if (num(i.amount)) { e.sum += i.amount; e.hasNum = true; }
+            if (!e) map.set(k, e = { k, pk: nkey(i.name), name: cap(i.name), unit: i.unit, fam: f?.[0], sum: 0, hasNum: false });
+            if (num(i.amount)) { e.sum += i.amount * (f ? f[1] : 1); e.hasNum = true; }
           }
         }
         return [...map.values()];
       }
-      const qty = e => e.hasNum ? `${fmt(e.sum)} ${e.unit}`.trim() : e.unit;
+      const FAM = { г: ['m', 1], гр: ['m', 1], кг: ['m', 1000], мл: ['v', 1], л: ['v', 1000] };
+      const qty = e => {
+        if (!e.hasNum) return e.unit;
+        if (!e.fam) return `${fmt(e.sum)} ${e.unit}`.trim();
+        const big = e.sum >= 1000;
+        return `${fmt(big ? e.sum / 1000 : e.sum)} ${e.fam === 'm' ? (big ? 'кг' : 'г') : (big ? 'л' : 'мл')}`;
+      };
       const shopBtn = r => {
         const label = () => shared.shop.has(r.id) ? 'В покупках' : '+ У покупки';
         const b = el('button', { type: 'button', class: 'pill sm', 'aria-pressed': String(shared.shop.has(r.id)), text: label() });
@@ -1136,7 +1159,7 @@
             el('button', { type: 'button', class: 'pill', 'aria-pressed': String(shared.pantry.has(k)), text: n, onclick: ev => { const on = !shared.pantry.has(k); setShared('p', k, on); ev.currentTarget.setAttribute('aria-pressed', String(on)); } })));
           q.addEventListener('input', () => { panQ = q.value; draw(); });
           draw();
-          out.push(el('p', { class: 'hint', text: 'Відмічайте, що є вдома. Комора спільна для всіх, хто підключив токен.' }), q, chips);
+          out.push(el('p', { class: 'hint', text: 'Відмічайте, що є вдома. Щоб зміни побачили інші, натисніть «Синхронізувати».' }), q, chips);
         } else {
           const rows = data.recipes.filter(r => r.status === 'planned')
             .map(r => ({ r, need: r.ingredients.filter(i => num(i.amount) && !shared.pantry.has(nkey(i.name))) }))
@@ -1159,7 +1182,7 @@
         const row = (e, box) => el('label', { class: 'lrow' + (box && shared.checked.has(e.k) ? ' done' : '') },
           box && el('input', { type: 'checkbox', checked: shared.checked.has(e.k), onchange: ev => { setShared('c', e.k, ev.target.checked); renderShop(); } }),
           el('span', { class: 'nm', text: e.name }), el('span', { class: 'q', text: qty(e) }));
-        $('shop-body').replaceChildren(
+        fill($('shop-body'),
           sel.length ? el('section', {}, el('h3', { text: 'Рецепти' }), el('div', { class: 'chips' }, sel.map(r =>
               el('button', { type: 'button', class: 'pill sm', text: r.title + ' ×', 'aria-label': 'Прибрати ' + r.title, onclick: () => { setShared('s', r.id, false); renderShop(); } }))))
             : el('p', { class: 'hint', text: 'Список порожній. Додайте рецепти кнопкою «+ У покупки» в картці рецепта або в Коморі, вкладка «Що приготувати».' }),
@@ -1224,6 +1247,8 @@
         $('open-pan').addEventListener('click', () => { renderPantry(); show(panDlg); pullShared(); });
         $('open-shop').addEventListener('click', () => { renderShop(); show(shopDlg); pullShared(); });
         $('set-btn').addEventListener('click', () => openSettings());
+        $('pan-sync-btn').addEventListener('click', syncNow);
+        $('shop-sync-btn').addEventListener('click', syncNow);
         $('shop-bought').addEventListener('click', () => {
           aggregate().filter(e => !shared.pantry.has(e.pk) && shared.checked.has(e.k)).forEach(e => { setShared('p', e.pk, true); setShared('c', e.k, false); });
           renderShop();
