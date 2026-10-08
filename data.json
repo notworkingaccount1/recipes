@@ -20,8 +20,12 @@
     {
       "id": "draniki",
       "title": "Драники",
-      "status": "planned",
+      "status": "cooked",
       "category": "Основні страви",
+      "ratings": {
+        "nazar": 4,
+        "sasha": 4
+      },
       "ingredients": {
         "Вода, ст.л.": 2,
         "Картопля, кг": 1.2,
