@@ -480,9 +480,12 @@
     {
       "id": "kuriache-file-z-ovochamy",
       "title": "Куряче філе з овочами",
-      "status": "planned",
+      "status": "cooked",
       "category": "Основні страви",
-      "ratings": {},
+      "ratings": {
+        "sasha": 5,
+        "nazar": 5
+      },
       "ingredients": {
         "Куряче філе, шт": 4,
         "Баклажани, шт": 3,
