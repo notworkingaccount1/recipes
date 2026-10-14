@@ -877,9 +877,12 @@
     {
       "id": "rmv6r0tqir5x",
       "title": "Рулет з тунцем",
-      "status": "planned",
+      "status": "cooked",
       "category": "Основні страви",
-      "ratings": {},
+      "ratings": {
+        "sasha": 5,
+        "nazar": 5
+      },
       "ingredients": {
         "Лаваш, шт": 2,
         "Тунець, г": 150,
