@@ -861,9 +861,12 @@
     {
       "id": "rmv6qz5xw5d0",
       "title": "Шоколадна ковбаса",
-      "status": "planned",
+      "status": "cooked",
       "category": "Десерти",
-      "ratings": {},
+      "ratings": {
+        "nazar": 4,
+        "sasha": 4
+      },
       "ingredients": {
         "Печиво, г": 500,
         "Горіхи, г": 100,
