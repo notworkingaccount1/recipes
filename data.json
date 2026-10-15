@@ -238,9 +238,12 @@
     {
       "id": "teftelky-u-vershkovomu-sousi",
       "title": "Тефтельки у вершковому соусі",
-      "status": "planned",
+      "status": "cooked",
       "category": "Основні страви",
-      "ratings": {},
+      "ratings": {
+        "sasha": 4,
+        "nazar": 4
+      },
       "ingredients": {
         "Куряче філе, г": 500,
         "Цибуля, шт": 1,
@@ -390,9 +393,12 @@
     {
       "id": "kartoplia-bulanzher",
       "title": "Картопля Буланжер",
-      "status": "planned",
+      "status": "cooked",
       "category": "Основні страви",
-      "ratings": {},
+      "ratings": {
+        "sasha": 4,
+        "nazar": 4
+      },
       "ingredients": {
         "Картопля, кг": 1,
         "Цибуля, шт": 2,
