@@ -313,9 +313,12 @@
     {
       "id": "kuriache-file-u-paniruvanni",
       "title": "Куряче філе у паніруванні",
-      "status": "planned",
+      "status": "cooked",
       "category": "Основні страви",
-      "ratings": {},
+      "ratings": {
+        "sasha": 5,
+        "nazar": 5
+      },
       "ingredients": {
         "Куряче філе, шт": 2,
         "Сіль, за смаком": "",
