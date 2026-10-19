@@ -1,0 +1,128 @@
+@use 'sass:list';
+@use '../abstracts/mixins' as *;
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 14px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.15s,
+    border-color 0.15s;
+
+  @include hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+
+  &__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+
+    &--empty {
+      color: var(--muted);
+    }
+  }
+
+  &__rating-value {
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__meta {
+    color: var(--muted);
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__chevron {
+    flex: none;
+    color: var(--muted);
+  }
+}
+
+.tile {
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font: 700 22px var(--font-display);
+  color: #14281f;
+
+  $gradients: (
+    0: (#c9efdd, #8fd8b9),
+    1: (#ffe6ad, #ffc760),
+    2: (#ffd0c0, #ff9f86),
+    3: (#dfd0f8, #b7a0ee),
+    4: (#c6e4f6, #8ec6ea),
+    5: (#f9cbdf, #ee98bf),
+  );
+
+  @each $i, $pair in $gradients {
+    &--#{$i} {
+      background: linear-gradient(135deg, list.nth($pair, 1), list.nth($pair, 2));
+    }
+  }
+}
+
+.stars {
+  --s: 16px;
+
+  display: inline-block;
+  flex: none;
+  width: calc(var(--s) * 5);
+  height: var(--s);
+  background: linear-gradient(90deg, var(--gold) var(--pct, 0%), var(--off) var(--pct, 0%));
+  -webkit-mask: $star-mask 0 0 / var(--s) var(--s) repeat-x;
+  mask: $star-mask 0 0 / var(--s) var(--s) repeat-x;
+}
+
+.star-input {
+  display: flex;
+
+  &__star {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--off);
+    display: grid;
+    place-items: center;
+
+    &--on {
+      color: var(--gold);
+    }
+  }
+}

@@ -1,0 +1,58 @@
+// Shopping list rows, pantry rows and collapsible block
+
+.shop-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+
+  &__checkbox {
+    width: 22px;
+    height: 22px;
+    accent-color: var(--accent);
+    flex: none;
+  }
+
+  &__name {
+    flex: 1;
+  }
+
+  &__qty {
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  &--done &__name {
+    text-decoration: line-through;
+    color: var(--muted);
+  }
+}
+
+.cook-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+
+  &__main {
+    flex: 1;
+    min-width: 0;
+    display: grid;
+    gap: 2px;
+    padding: 0;
+    border: 0;
+    background: none;
+    text-align: left;
+  }
+}
+
+.collapse {
+  &__summary {
+    cursor: pointer;
+    color: var(--muted);
+    padding: 8px 0;
+  }
+}

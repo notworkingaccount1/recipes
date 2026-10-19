@@ -1,0 +1,49 @@
+.field {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+
+  &__label {
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-error {
+  margin: 0;
+  color: var(--danger);
+  font-size: 14px;
+}
+
+.ingredient-row {
+  display: grid;
+  grid-template-columns: 1fr 64px 64px 36px;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.rate-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 2px 0;
+
+  &__name {
+    font-weight: 600;
+  }
+}

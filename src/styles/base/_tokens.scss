@@ -1,0 +1,44 @@
+@use '../abstracts/mixins' as *;
+
+:root {
+  color-scheme: light dark;
+
+  --bg: #f2f6f1;
+  --bar: rgba(242, 246, 241, 0.84);
+  --surface: #fff;
+  --surface-2: #e6eee7;
+  --ink: #14281f;
+  --muted: #587065;
+  --line: rgba(20, 40, 31, 0.12);
+  --accent: #1c7a58;
+  --on-accent: #fff;
+  --gold: #f0a81a;
+  --off: rgba(20, 40, 31, 0.16);
+  --danger: #c4402f;
+  --on-danger: #fff;
+  --shadow: 0 1px 2px rgba(20, 40, 31, 0.06), 0 10px 26px -14px rgba(20, 40, 31, 0.25);
+  --glow-1: rgba(63, 184, 138, 0.3);
+  --glow-2: rgba(240, 168, 26, 0.22);
+
+  --font-body: 'Onest', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Unbounded', 'Onest', system-ui, sans-serif;
+
+  @include dark {
+    --bg: #0c1714;
+    --bar: rgba(12, 23, 20, 0.84);
+    --surface: #13241f;
+    --surface-2: #1b312a;
+    --ink: #e7f2ec;
+    --muted: #8aa89c;
+    --line: rgba(231, 242, 236, 0.12);
+    --accent: #4fd1a1;
+    --on-accent: #06281c;
+    --gold: #ffc247;
+    --off: rgba(231, 242, 236, 0.18);
+    --danger: #ff8a78;
+    --on-danger: #2a0d08;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 30px -16px rgba(0, 0, 0, 0.7);
+    --glow-1: rgba(79, 209, 161, 0.18);
+    --glow-2: rgba(255, 194, 71, 0.1);
+  }
+}

@@ -1,0 +1,154 @@
+// Pills, buttons, inputs and other small interactive controls
+
+.pills,
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pill {
+  min-height: 38px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  font-weight: 500;
+  font-size: 14px;
+
+  &--small {
+    min-height: 34px;
+    padding: 4px 12px;
+    font-size: 13.5px;
+  }
+
+  &--active {
+    background: var(--accent);
+    border-color: transparent;
+    color: var(--on-accent);
+  }
+
+  &__star {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  &--active &__star {
+    color: inherit;
+  }
+}
+
+.badge {
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: 99px;
+  background: var(--line);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+
+  &--accent {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+}
+
+.button {
+  min-height: 46px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  font-weight: 600;
+  font-size: 15px;
+
+  &--primary {
+    background: var(--accent);
+    color: var(--on-accent);
+    border-color: transparent;
+  }
+
+  &--wide {
+    grid-column: 1 / -1;
+  }
+
+  &--danger {
+    color: var(--danger);
+  }
+
+  &--danger#{&}--armed {
+    background: var(--danger);
+    color: var(--on-danger);
+    border-color: transparent;
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+.icon-button {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--surface-2);
+  display: grid;
+  place-items: center;
+
+  &--small {
+    width: 36px;
+    height: 36px;
+    background: none;
+    color: var(--muted);
+  }
+}
+
+.link-button {
+  flex: none;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  padding: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: inherit;
+  font-size: 16px;
+
+  &--compact {
+    padding: 10px;
+  }
+
+  &--search {
+    height: 46px;
+    padding: 0 14px;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  &--textarea {
+    resize: vertical;
+    min-height: 96px;
+    line-height: 1.5;
+  }
+}
+
+.hint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.4;
+
+  &--ok {
+    color: var(--accent);
+  }
+}
